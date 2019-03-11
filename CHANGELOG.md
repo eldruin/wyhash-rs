@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## 0.1.0 - 2019-03-11
 
-This is the initial release of the driver to crates.io. All changes will
-be documented in this CHANGELOG.
+This is the initial release to crates.io.
 
 [Unreleased]: https://github.com/eldruin/wyhash-rs/compare/v0.1.0...HEAD
