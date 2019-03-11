@@ -1,0 +1,33 @@
+[package]
+name = "wyhash"
+version = "0.1.0"
+authors = ["Diego Barrios Romero <eldruin@gmail.com>"]
+repository = "https://github.com/eldruin/wyhash-rs"
+license = "Apache-2.0"
+description = "Rust implementation of the WyHash fast non-cryptographic hashing algorithm."
+readme = "README.md"
+keywords = ["hash", "wyhash"]
+categories = ["algorithms", "no-std"]
+homepage = "https://github.com/eldruin/wyhash-rs"
+documentation = "https://docs.rs/wyhash"
+include = [
+    "**/*.rs",
+    "/Cargo.toml",
+    "/README.md",
+    "/CHANGELOG.md",
+    "/LICENSE-APACHE",
+]
+
+[badges]
+travis-ci = { repository = "eldruin/wyhash-rs", branch = "master" }
+coveralls = { repository = "eldruin/wyhash-rs", branch = "master", service = "github" }
+maintenance = { status = "actively-developed" }
+
+[features]
+default = ["std"]
+std = []
+
+[profile.release]
+lto = true
+
+
