@@ -77,28 +77,30 @@ pub fn wyhash(bytes: &[u8], mut seed: u64) -> u64 {
             ^ wyhashmix(seed ^ P4, read64(&bytes[(i * 32) + 24..]));
     }
 
-    let start = bytes.len() & !31;
-    match bytes.len() & 31 {
-        0 => (),
-        1..=8 => seed = wyhashmix(seed ^ P1, read_rest(&bytes[start..])),
-        9..=16 => {
-            seed = wyhashmix(seed ^ P1, read64(&bytes[start..]))
-                ^ wyhashmix(seed ^ P2, read_rest(&bytes[start + 8..]))
-        }
+    let rest = bytes.len() & 31;
+    if rest != 0 {
+        let start = bytes.len() & !31;
+        match ((bytes.len()-1) & 31) / 8  {
+            0 => seed = wyhashmix(seed ^ P1, read_rest(&bytes[start..])),
+            1 => {
+                seed = wyhashmix(seed ^ P1, read64(&bytes[start..]))
+                    ^ wyhashmix(seed ^ P2, read_rest(&bytes[start + 8..]))
+            }
 
-        17..=24 => {
-            seed = wyhashmix(seed ^ P1, read64(&bytes[start..]))
-                ^ wyhashmix(seed ^ P2, read64(&bytes[start + 8..]))
-                ^ wyhashmix(seed ^ P3, read_rest(&bytes[start + 16..]))
-        }
+            2 => {
+                seed = wyhashmix(seed ^ P1, read64(&bytes[start..]))
+                    ^ wyhashmix(seed ^ P2, read64(&bytes[start + 8..]))
+                    ^ wyhashmix(seed ^ P3, read_rest(&bytes[start + 16..]))
+            }
 
-        25..=32 => {
-            seed = wyhashmix(seed ^ P1, read64(&bytes[start..]))
-                ^ wyhashmix(seed ^ P2, read64(&bytes[start + 8..]))
-                ^ wyhashmix(seed ^ P3, read64(&bytes[start + 16..]))
-                ^ wyhashmix(seed ^ P4, read_rest(&bytes[start + 24..]))
+            3 => {
+                seed = wyhashmix(seed ^ P1, read64(&bytes[start..]))
+                    ^ wyhashmix(seed ^ P2, read64(&bytes[start + 8..]))
+                    ^ wyhashmix(seed ^ P3, read64(&bytes[start + 16..]))
+                    ^ wyhashmix(seed ^ P4, read_rest(&bytes[start + 24..]))
+            }
+            _ => unreachable!(),
         }
-        _ => unreachable!(),
     }
     wyhashmix(seed, bytes.len() as u64)
 }
