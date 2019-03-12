@@ -1,4 +1,4 @@
-# Rust implementation of the wyhash fast portable non-cryptographic hashing algorithm
+# wyhash fast portable non-cryptographic hashing algorithm
 
 [![crates.io](https://img.shields.io/crates/v/wyhash.svg)](https://crates.io/crates/wyhash)
 [![Docs](https://docs.rs/wyhash/badge.svg)](https://docs.rs/wyhash)
@@ -23,7 +23,7 @@ extern crate wyhash;
 use wyhash::WyHash;
 use std::hash::Hasher;
 
-fn main() {    
+fn main() {
   let mut hasher = WyHash::with_seed(1);
   hasher.write(&[0]);
   assert_eq!(0xcb4b8ebdf7240e2c, hasher.finish());
