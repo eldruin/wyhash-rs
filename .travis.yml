@@ -1,4 +1,72 @@
 language: rust
-rust:
-    - stable
-    - nightly
+# sudo is required to enable kcov to use the personality syscall
+sudo: required
+
+before_install:
+  - git clone https://github.com/eldruin/rust-driver-ci-scripts ci
+  - bash ci/before_install.sh
+
+matrix:
+  include:
+    - env: TARGET=x86_64-unknown-linux-gnu
+      before_script:
+        - bash ci/coverage_before_script.sh
+      after_success:
+        - bash ci/coverage_after_success.sh
+      addons:
+        apt:
+          packages:
+            - libcurl4-openssl-dev
+            - libelf-dev
+            - libdw-dev
+            - binutils-dev
+            - cmake
+          sources:
+            - kalakris-cmake
+
+    - env: TARGET=x86_64-unknown-linux-gnu NO_DEFAULT_FEATURES=1
+
+    - env: TARGET=x86_64-unknown-linux-gnu
+      rust: nightly
+
+    - env: TARGET=x86_64-unknown-linux-gnu NO_DEFAULT_FEATURES=1
+      rust: nightly
+
+    - env: TARGET=x86_64-unknown-linux-musl
+      rust: nightly
+
+    # Minimum Supported Rust Version
+    - env: TARGET=x86_64-unknown-linux-gnu
+      rust: 1.31.0
+
+    # Raspberry Pi 1
+    - env: TARGET=arm-unknown-linux-gnueabi DISABLE_EXAMPLES=1 DISABLE_TESTS=1
+
+    # Raspberry Pi 2, 3, etc
+    - env: TARGET=armv7-unknown-linux-gnueabihf DISABLE_EXAMPLES=1 DISABLE_TESTS=1
+
+    # Bare metal
+    - env: TARGET=thumbv6m-none-eabi NO_DEFAULT_FEATURES=1
+    - env: TARGET=thumbv7em-none-eabi NO_DEFAULT_FEATURES=1
+    - env: TARGET=thumbv7em-none-eabihf NO_DEFAULT_FEATURES=1
+    - env: TARGET=thumbv7m-none-eabi NO_DEFAULT_FEATURES=1
+
+install:
+  bash ci/install.sh
+
+script:
+  bash ci/script.sh
+
+after_script: set +e
+
+cache: cargo
+cache:
+  directories:
+    - /home/travis/.cargo
+
+before_cache:
+  bash ci/before_cache.sh
+
+notifications:
+  email:
+on_success: never
