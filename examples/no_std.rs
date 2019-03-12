@@ -1,3 +1,5 @@
+// Example of usage without needing the standard library.
+// (You will still need to add #![no_std], a panic handler and so on.)
 extern crate wyhash;
 use wyhash::wyhash;
 
