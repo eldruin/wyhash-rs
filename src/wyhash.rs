@@ -6,8 +6,7 @@ const P4: u64 = 0x897f_236f_b004_a8e7;
 
 #[inline]
 fn wyhashmix(a: u64, b: u64) -> u64 {
-    let mut r = u128::from(a);
-    r *= u128::from(b ^ P0);
+    let r = u128::from(a) * u128::from(b ^ P0);
     ((r >> 64) ^ r) as u64
 }
 
