@@ -1,8 +1,8 @@
 // Example using the std::hash::Hasher interface.
 
 extern crate wyhash;
-use wyhash::WyHash;
 use std::hash::Hasher;
+use wyhash::WyHash;
 
 fn main() {
     let mut hasher = WyHash::with_seed(1);
