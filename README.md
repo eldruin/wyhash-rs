@@ -1,14 +1,18 @@
-# Rust implementation of the wyhash fast non-cryptographic hashing algorithm
+# Rust implementation of the wyhash fast portable non-cryptographic hashing algorithm
 
 [![crates.io](https://img.shields.io/crates/v/wyhash.svg)](https://crates.io/crates/wyhash)
 [![Docs](https://docs.rs/wyhash/badge.svg)](https://docs.rs/wyhash)
 [![Build Status](https://travis-ci.org/eldruin/wyhash-rs.svg?branch=master)](https://travis-ci.org/eldruin/wyhash-rs)
 ![Maintenance Intention](https://img.shields.io/badge/maintenance-actively--developed-brightgreen.svg)
 
-This is a Rust implementation of the [wyhash algorithm by Wang Yi][1].
-The generated hashes are equal (see tests).
+This is a Rust implementation of the [wyhash algorithm by Wang Yi][original].
+The generated hashes are equal (see tests) although the speed varies
+([PRs are welcome][issue-tracker]).
 
-[1]: https://github.com/wangyi-fudan/wyhash
+The algorithm passes the SMHasher, BigCrush and practrand and as of now it is the
+fastest algorithm in the SMHasher benchmark (faster than t1ha). See [here][original].
+
+Furthermore, this algorithm is portable (does not need hardware support), simple and has no dependencies.
 
 ### Usage
 
@@ -34,7 +38,7 @@ fn main() {
 ## Support
 
 For questions, issues, feature requests, and other changes, please file an
-[issue in the github project](https://github.com/eldruin/wyhash-rs/issues).
+[issue in the github project][issue-tracker]].
 
 ## License
 
@@ -49,3 +53,5 @@ Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you, as defined in the Apache-2.0 license, shall
 be licensed as above, without any additional terms or conditions.
 
+[issue-tracker]: https://github.com/eldruin/wyhash-rs/issues
+[original]: https://github.com/wangyi-fudan/wyhash

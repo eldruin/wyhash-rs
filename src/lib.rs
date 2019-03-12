@@ -1,10 +1,16 @@
-//! wyhash is a fast non-cryptographic hash by Wang Yi.
+//! This is a Rust implementation of the [wyhash algorithm by Wang Yi][original].
+//! The generated hashes are equal (see tests) although the speed varies
+//! ([PRs are welcome][issue-tracker]).
 //!
-//! This is an implementation of the [original algorithm][1] in Rust.
-//! The generated hashes are equal (see tests).
+//! The algorithm passes the SMHasher, BigCrush and practrand and as of now it
+//! is the fastest algorithm in the SMHasher benchmark (faster than t1ha).
+//! See [here][original].
 //!
-//! [1]: https://github.com/wangyi-fudan/wyhash
+//! Furthermore, this algorithm is portable (does not need hardware support),
+//! simple and has no dependencies.
 //!
+//! [issue-tracker]: https://github.com/eldruin/wyhash-rs/issues
+//! [original]: https://github.com/wangyi-fudan/wyhash
 
 #![no_std]
 #![deny(missing_docs, unsafe_code)]
