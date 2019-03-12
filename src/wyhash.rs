@@ -82,7 +82,7 @@ pub fn wyhash(bytes: &[u8], mut seed: u64) -> u64 {
     let rest = bytes.len() & 31;
     if rest != 0 {
         let start = bytes.len() & !31;
-        match ((bytes.len()-1) & 31) / 8  {
+        match ((bytes.len() - 1) & 31) / 8 {
             0 => seed = wyhashmix(seed ^ P1, read_rest(&bytes[start..])),
             1 => {
                 seed = wyhashmix(seed ^ P1, read64(&bytes[start..]))
