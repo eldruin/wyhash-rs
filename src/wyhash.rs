@@ -4,12 +4,14 @@ const P2: u64 = 0x1b03_7387_12fa_d5c9;
 const P3: u64 = 0xd985_068b_c543_9bd7;
 const P4: u64 = 0x897f_236f_b004_a8e7;
 
+#[inline]
 fn wyhashmix(a: u64, b: u64) -> u64 {
     let mut r = u128::from(a);
     r *= u128::from(b ^ P0);
     ((r >> 64) ^ r) as u64
 }
 
+#[inline]
 fn read64(data: &[u8]) -> u64 {
     u64::from(data[7]) << 56
         | u64::from(data[6]) << 48
@@ -21,6 +23,7 @@ fn read64(data: &[u8]) -> u64 {
         | u64::from(data[0])
 }
 
+#[inline]
 fn read_rest(data: &[u8]) -> u64 {
     // This may be mathematically acceptable but the hashes would change as the byte sorting changes.
     // let mut result = 0;

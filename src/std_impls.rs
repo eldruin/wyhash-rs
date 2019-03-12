@@ -16,11 +16,13 @@ impl WyHash {
 }
 
 impl Hasher for WyHash {
+    #[inline]
     fn write(&mut self, bytes: &[u8]) {
         for bytes in bytes.chunks(u64::max_value() as usize) {
             self.h = wyhash(bytes, self.h);
         }
     }
+    #[inline]
     fn finish(&self) -> u64 {
         self.h
     }
