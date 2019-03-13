@@ -71,7 +71,13 @@ fn read_rest(data: &[u8]) -> u64 {
 }
 
 /// Generate a hash for the input data and seed
-pub fn wyhash(bytes: &[u8], mut seed: u64) -> u64 {
+pub fn wyhash(bytes: &[u8], seed: u64) -> u64 {
+    let seed = wyhash_core(bytes, seed);
+    wyhash_finish(bytes.len() as u64, seed)
+}
+
+#[inline]
+pub(crate) fn wyhash_core(bytes: &[u8], mut seed: u64) -> u64 {
     for i in 0..(bytes.len() / 32) {
         seed = wyhashmix(seed ^ P1, read64(&bytes[(i * 32)..]))
             ^ wyhashmix(seed ^ P2, read64(&bytes[(i * 32) + 8..]))
@@ -104,7 +110,12 @@ pub fn wyhash(bytes: &[u8], mut seed: u64) -> u64 {
             _ => unreachable!(),
         }
     }
-    wyhashmix(seed, bytes.len() as u64)
+    seed
+}
+
+#[inline]
+pub(crate) fn wyhash_finish(length: u64, seed: u64) -> u64 {
+    wyhashmix(seed, length)
 }
 
 // TODO add PRNG
