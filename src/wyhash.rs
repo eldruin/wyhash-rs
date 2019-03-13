@@ -78,11 +78,11 @@ pub fn wyhash(bytes: &[u8], seed: u64) -> u64 {
 
 #[inline]
 pub(crate) fn wyhash_core(bytes: &[u8], mut seed: u64) -> u64 {
-    for i in 0..(bytes.len() / 32) {
-        seed = wyhashmix(seed ^ P1, read64(&bytes[(i * 32)..]))
-            ^ wyhashmix(seed ^ P2, read64(&bytes[(i * 32) + 8..]))
-            ^ wyhashmix(seed ^ P3, read64(&bytes[(i * 32) + 16..]))
-            ^ wyhashmix(seed ^ P4, read64(&bytes[(i * 32) + 24..]));
+    for chunk in bytes.chunks_exact(32) {
+        seed = wyhashmix(seed ^ P1, read64(chunk))
+                ^ wyhashmix(seed ^ P2, read64(&chunk[8..]))
+                ^ wyhashmix(seed ^ P3, read64(&chunk[16..]))
+                ^ wyhashmix(seed ^ P4, read64(&chunk[24..]));
     }
 
     let rest = bytes.len() & 31;
