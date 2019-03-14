@@ -23,6 +23,14 @@ fn read64(data: &[u8]) -> u64 {
 }
 
 #[inline]
+fn read32(data: &[u8]) -> u64 {
+    u64::from(data[3]) << 24
+        | u64::from(data[2]) << 16
+        | u64::from(data[1]) << 8
+        | u64::from(data[0])
+}
+
+#[inline]
 fn read_rest(data: &[u8]) -> u64 {
     // This may be mathematically acceptable but the hashes would change as the byte sorting changes.
     // let mut result = 0;
@@ -35,32 +43,11 @@ fn read_rest(data: &[u8]) -> u64 {
         1 => u64::from(data[0]),
         2 => u64::from(data[1]) << 8 | u64::from(data[0]),
         3 => u64::from(data[1]) << 16 | u64::from(data[0]) << 8 | u64::from(data[2]),
-        4 => {
-            u64::from(data[3]) << 24
-                | u64::from(data[2]) << 16
-                | u64::from(data[1]) << 8
-                | u64::from(data[0])
-        }
-        5 => {
-            u64::from(data[3]) << 32
-                | u64::from(data[2]) << 24
-                | u64::from(data[1]) << 16
-                | u64::from(data[0]) << 8
-                | u64::from(data[4])
-        }
-        6 => {
-            u64::from(data[3]) << 40
-                | u64::from(data[2]) << 32
-                | u64::from(data[1]) << 24
-                | u64::from(data[0]) << 16
-                | u64::from(data[5]) << 8
-                | u64::from(data[4])
-        }
+        4 => read32(data),
+        5 => read32(data) << 8 | u64::from(data[4]),
+        6 => read32(data) << 16 | u64::from(data[5]) << 8 | u64::from(data[4]),
         7 => {
-            u64::from(data[3]) << 48
-                | u64::from(data[2]) << 40
-                | u64::from(data[1]) << 32
-                | u64::from(data[0]) << 24
+            read32(data) << 24
                 | u64::from(data[5]) << 16
                 | u64::from(data[4]) << 8
                 | u64::from(data[6])
