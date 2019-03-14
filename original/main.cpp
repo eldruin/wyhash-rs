@@ -5,12 +5,30 @@
 #include <vector>
 #include "wyhash.h"
 
-int main(int, char**)
+void print_hash_table()
 {
+    std::cout << "Hash table:\n\n";
     std::vector<unsigned char> data(256);
     for (size_t i = 0; i < data.size(); ++i)
     {
         data[i] = i;
         std::cout << std::hex << wyhash(data.data(), i, i) << std::endl;
     }
+}
+
+void print_prng_table()
+{
+    std::cout << "PRNG table:\n\n";
+    for (unsigned long long i = 0; i < 10; ++i)
+    {
+        unsigned long long d = i;
+        std::cout << std::hex << wyrng(&d) << std::endl;
+    }
+}
+
+int main(int, char**)
+{
+    print_hash_table();
+    std::cout << "\n\n";
+    print_prng_table();
 }

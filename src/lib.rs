@@ -16,7 +16,7 @@
 #![deny(missing_docs, unsafe_code)]
 
 mod wyhash;
-pub use wyhash::wyhash;
+pub use wyhash::{wyhash, wyrng};
 
 mod trait_impls;
 pub use trait_impls::WyHash;

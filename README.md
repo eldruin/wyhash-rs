@@ -30,11 +30,6 @@ fn main() {
 }
 ```
 
-## Status
-
-- [x] Hashing function
-- [ ] PRNG
-
 ## Support
 
 For questions, issues, feature requests, and other changes, please file an
