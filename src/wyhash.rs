@@ -5,9 +5,14 @@ const P3: u64 = 0xd985_068b_c543_9bd7;
 const P4: u64 = 0x897f_236f_b004_a8e7;
 
 #[inline]
-fn wyhashmix(a: u64, b: u64) -> u64 {
-    let r = u128::from(a) * u128::from(b ^ P0);
+fn wyhashmix64(a: u64, b: u64) -> u64 {
+    let r = u128::from(a) * u128::from(b);
     ((r >> 64) ^ r) as u64
+}
+
+#[inline]
+fn wyhashmix(a: u64, b: u64) -> u64 {
+    wyhashmix64(a, b ^ P0)
 }
 
 #[inline]
