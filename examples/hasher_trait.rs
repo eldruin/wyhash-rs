@@ -1,7 +1,9 @@
-// Example using the std::hash::Hasher interface.
+// Example using the `core::hash::Hasher` interface.
+// (Same as using `std::hash::Hasher`)
 
 extern crate wyhash;
-use std::hash::Hasher;
+extern crate core;
+use core::hash::Hasher;
 use wyhash::WyHash;
 
 fn main() {
