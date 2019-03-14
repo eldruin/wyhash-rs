@@ -1,5 +1,7 @@
+extern crate core;
 extern crate wyhash;
-use wyhash::wyhash;
+use core::hash::Hasher;
+use wyhash::{wyhash, WyHash};
 
 #[test]
 fn wyhash_test() {
@@ -10,11 +12,8 @@ fn wyhash_test() {
     }
 }
 
-#[cfg(feature = "std")]
 #[test]
-fn std_hasher() {
-    use std::hash::Hasher;
-    use wyhash::WyHash;
+fn core_hasher() {
     let mut data = [0; 256];
     for i in 0..data.len() {
         data[i] = i as u8;

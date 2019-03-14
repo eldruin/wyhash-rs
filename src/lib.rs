@@ -18,7 +18,5 @@
 mod wyhash;
 pub use wyhash::wyhash;
 
-#[cfg(feature = "std")]
-mod std_impls;
-#[cfg(feature = "std")]
-pub use std_impls::WyHash;
+mod trait_impls;
+pub use trait_impls::WyHash;

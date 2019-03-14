@@ -22,9 +22,6 @@ include = [
 travis-ci = { repository = "eldruin/wyhash-rs", branch = "master" }
 maintenance = { status = "actively-developed" }
 
-[features]
-default = ["std"]
-std = []
 
 [profile.release]
 lto = true

@@ -1,6 +1,5 @@
+use core::hash::Hasher;
 use wyhash::{wyhash_core, wyhash_finish};
-extern crate std;
-use self::std::hash::Hasher;
 
 /// WyHash hasher
 #[derive(Default)]
