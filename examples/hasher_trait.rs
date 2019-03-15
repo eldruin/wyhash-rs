@@ -7,7 +7,7 @@ use core::hash::Hasher;
 use wyhash::WyHash;
 
 fn main() {
-    let mut hasher = WyHash::with_seed(1);
-    hasher.write(&[0]);
+    let mut hasher = WyHash::with_seed(3);
+    hasher.write(&[0, 1, 2]);
     assert_eq!(0xcb4b8ebdf7240e2c, hasher.finish());
 }
