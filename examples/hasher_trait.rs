@@ -9,5 +9,5 @@ use wyhash::WyHash;
 fn main() {
     let mut hasher = WyHash::with_seed(3);
     hasher.write(&[0, 1, 2]);
-    assert_eq!(0xcb4b8ebdf7240e2c, hasher.finish());
+    assert_eq!(0xff72c1dd91f7f9b7, hasher.finish());
 }
