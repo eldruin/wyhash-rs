@@ -113,7 +113,7 @@ pub(crate) fn wyhash_finish(length: u64, seed: u64) -> u64 {
 /// Pseudo-Random Number Generator (PRNG)
 pub fn wyrng(seed: u64) -> u64 {
     let seed = seed.wrapping_add(P0);
-    return wyhashmix64(wyhashmix64(seed, P1), P2);
+    wyhashmix64(wyhashmix64(seed, P1), P2)
 }
 
 #[cfg(test)]
