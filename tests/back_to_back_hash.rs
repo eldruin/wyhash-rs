@@ -24,6 +24,7 @@ fn core_hasher() {
 }
 
 // Results from the cannonical C implementation
+#[allow(clippy::unreadable_literal)]
 const ORIGINAL_HASHES: [u64; 256] = [
     0,
     0xcb4b8ebdf7240e2c,

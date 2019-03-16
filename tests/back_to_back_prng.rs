@@ -10,6 +10,7 @@ fn wyrng_test() {
 }
 
 // Results from the cannonical C implementation
+#[allow(clippy::unreadable_literal)]
 const ORIGINAL_PRNG: [u64; 10] = [
     0x5c71580fe1214a64,
     0xd603133dc4196d3,

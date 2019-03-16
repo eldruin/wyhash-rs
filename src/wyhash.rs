@@ -124,16 +124,16 @@ mod tests {
     fn read_rest_byte_sorting() {
         assert_eq!(0x01, read_rest(&[1]));
         assert_eq!(0x0201, read_rest(&[1, 2]));
-        assert_eq!(0x020103, read_rest(&[1, 2, 3]));
-        assert_eq!(0x04030201, read_rest(&[1, 2, 3, 4]));
-        assert_eq!(0x0403020105, read_rest(&[1, 2, 3, 4, 5]));
-        assert_eq!(0x040302010605, read_rest(&[1, 2, 3, 4, 5, 6]));
-        assert_eq!(0x04030201060507, read_rest(&[1, 2, 3, 4, 5, 6, 7]));
-        assert_eq!(0x0807060504030201, read_rest(&[1, 2, 3, 4, 5, 6, 7, 8]));
+        assert_eq!(0x02_0103, read_rest(&[1, 2, 3]));
+        assert_eq!(0x0403_0201, read_rest(&[1, 2, 3, 4]));
+        assert_eq!(0x04_0302_0105, read_rest(&[1, 2, 3, 4, 5]));
+        assert_eq!(0x0403_0201_0605, read_rest(&[1, 2, 3, 4, 5, 6]));
+        assert_eq!(0x04_0302_0106_0507, read_rest(&[1, 2, 3, 4, 5, 6, 7]));
+        assert_eq!(0x0807_0605_0403_0201, read_rest(&[1, 2, 3, 4, 5, 6, 7, 8]));
     }
 
     #[test]
     fn read64_byte_sorting() {
-        assert_eq!(0x0807060504030201, read64(&[1, 2, 3, 4, 5, 6, 7, 8]));
+        assert_eq!(0x0807_0605_0403_0201, read64(&[1, 2, 3, 4, 5, 6, 7, 8]));
     }
 }
