@@ -33,7 +33,7 @@ matrix:
       rust: nightly
 
     - env: TARGET=x86_64-unknown-linux-musl
-      rust: nightly
+      rust: stable
 
     # Minimum Supported Rust Version
     - env: TARGET=x86_64-unknown-linux-gnu
