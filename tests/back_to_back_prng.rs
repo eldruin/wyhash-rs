@@ -4,7 +4,6 @@ use wyhash::wyrng;
 #[test]
 fn wyrng_test() {
     for (i, original) in ORIGINAL_PRNG.iter().enumerate() {
-        println!("{}", i);
         assert_eq!(*original, wyrng(i as u64));
     }
 }
