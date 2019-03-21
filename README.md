@@ -6,14 +6,17 @@
 [![Coverage Status](https://coveralls.io/repos/github/eldruin/wyhash-rs/badge.svg?branch=master)](https://coveralls.io/github/eldruin/wyhash-rs?branch=master)
 ![Maintenance Intention](https://img.shields.io/badge/maintenance-actively--developed-brightgreen.svg)
 
-This is a Rust implementation of the [wyhash algorithm by Wang Yi][original].
-The generated hashes are equal (see tests) although the speed varies
-([PRs are welcome][issue-tracker]).
+Rust implementation of the [wyhash algorithm by Wang Yi][original].
 
-The algorithm passes the SMHasher, BigCrush and practrand and as of now it is the
-fastest algorithm in the SMHasher benchmark (faster than t1ha). See [here][original].
+The hashing algorithm passes SMHasher and the random number generator passes BigCrush and practrand.
+As of now it is the fastest algorithm in the SMHasher benchmark (faster than t1ha and XXH3).
+See [here][original].
 
-Furthermore, this algorithm is portable (does not need hardware support), simple and has no dependencies.
+Furthermore, this algorithm is solid, simple, portable (does not need hardware support, can be
+used in `no_std` environments) and has no dependencies.
+
+The generated hashes are equal (see tests) as of the version stated [here][original-version]
+although the speed varies ([PRs are welcome][issue-tracker]).
 
 ### Usage
 
@@ -49,3 +52,4 @@ be licensed as above, without any additional terms or conditions.
 
 [issue-tracker]: https://github.com/eldruin/wyhash-rs/issues
 [original]: https://github.com/wangyi-fudan/wyhash
+[original-version]: https://github.com/eldruin/wyhash-rs/blob/master/original/CMakeLists.txt
