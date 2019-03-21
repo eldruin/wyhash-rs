@@ -1,5 +1,5 @@
 use core::hash::Hasher;
-use wyhash::{wyhash_core, wyhash_finish};
+use wyhash::{wyhash_core, wyhash_finish, wyhash_start};
 
 /// WyHash hasher
 #[derive(Default)]
@@ -18,6 +18,7 @@ impl WyHash {
 impl Hasher for WyHash {
     #[inline]
     fn write(&mut self, bytes: &[u8]) {
+        self.h = wyhash_start(self.h);
         for bytes in bytes.chunks(u64::max_value() as usize) {
             self.h = wyhash_core(bytes, self.h);
             self.size += bytes.len() as u64
