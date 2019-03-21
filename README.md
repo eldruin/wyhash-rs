@@ -17,8 +17,6 @@ Furthermore, this algorithm is portable (does not need hardware support), simple
 
 ### Usage
 
-`no_std` mode is activated by setting `default-features = false;`
-
 ```rust
 extern crate wyhash;
 use wyhash::WyHash;
