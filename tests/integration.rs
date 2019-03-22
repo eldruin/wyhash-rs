@@ -7,5 +7,5 @@ use wyhash::WyHash;
 fn default_constructed() {
     let mut hasher = WyHash::default();
     hasher.write(&[0]);
-    assert_eq!(0x9c4c_36b1_3662_61d1, hasher.finish());
+    assert_eq!(0x8c73_a8ab_4659_6ae4, hasher.finish());
 }

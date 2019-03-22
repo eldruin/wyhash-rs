@@ -11,14 +11,14 @@ fn wyrng_test() {
 // Results from the cannonical C implementation
 #[allow(clippy::unreadable_literal)]
 const ORIGINAL_PRNG: [u64; 10] = [
-    0xb01eebcf5b9ef14f,
-    0x9742cbb78a1b31eb,
-    0x8f1b664b0136eec,
-    0x692cac55f5878c41,
-    0xcb5b171aa3803d4d,
-    0x218f78c2d23c7ded,
-    0x833fe3b79834aae9,
-    0xe06ad960dda8c866,
-    0x459944558ba1796b,
-    0xb8cda41e3a5db986,
+    0x111cb3a78f59a58e,
+    0xcdef1695e1f8ed2c,
+    0xa4eed0248024f5f6,
+    0x3e99a772750dcbe,
+    0xfae94589c79d2703,
+    0xac19123cacd229cc,
+    0xb18dc4f431e3006,
+    0xe21b87e1e24a18c1,
+    0x591b413082f6638b,
+    0x35d5241efb19a892,
 ];

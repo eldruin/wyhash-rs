@@ -28,7 +28,7 @@
 //!     let seed = 3;
 //!     let hash = wyhash(&data, seed);
 //!
-//!     assert_eq!(0xcc24_2106_e707_6a48, hash);
+//!     assert_eq!(0xb0f9_4152_0b1a_d95d, hash);
 //! }
 //! ```
 //!
@@ -46,7 +46,7 @@
 //!     let mut hasher = WyHash::with_seed(3);
 //!     hasher.write(&[0, 1, 2]);
 //!
-//!     assert_eq!(0xcc24_2106_e707_6a48, hasher.finish());
+//!     assert_eq!(0xb0f9_4152_0b1a_d95d, hasher.finish());
 //! }
 //! ```
 //!
@@ -60,7 +60,7 @@
 //!     let seed = 3;
 //!     let random_number = wyrng(seed);
 //!
-//!     assert_eq!(0x692c_ac55_f587_8c41, random_number);
+//!     assert_eq!(0x3e9_9a77_2750_dcbe, random_number);
 //! }
 //! ```
 

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.8)
 
 project(wyhash-generator CXX)
 
-set(REVISION 71e5801388726fdb20ed6ab786c3a73d978c7a8d)
+set(REVISION f221d8199d8f4bacdaf539b1a5138f2ce0dd578e)
 
 file(DOWNLOAD
     https://raw.githubusercontent.com/wangyi-fudan/wyhash/${REVISION}/wyhash.h

@@ -1,9 +1,9 @@
-const P0: u64 = 0x60be_e2be_e120_fc15;
-const P1: u64 = 0xa3b1_9535_4a39_b70d;
-const P2: u64 = 0x1b03_7387_12fa_d5c9;
-const P3: u64 = 0xd985_068b_c543_9bd7;
-const P4: u64 = 0x897f_236f_b004_a8e7;
-const P5: u64 = 0xc104_aa67_c96b_7d55;
+const P0: u64 = 0xa076_1d64_78bd_642f;
+const P1: u64 = 0xe703_7ed1_a0b4_28db;
+const P2: u64 = 0x8ebc_6af0_9c88_c6e3;
+const P3: u64 = 0x5899_65cc_7537_4cc3;
+const P4: u64 = 0x1d8e_4e27_c47d_124f;
+const P5: u64 = 0xeb44_acca_b455_d165;
 
 #[inline]
 fn wymum(a: u64, b: u64) -> u64 {
@@ -65,13 +65,12 @@ fn read_rest(data: &[u8]) -> u64 {
 
 /// Generate a hash for the input data and seed
 pub fn wyhash(bytes: &[u8], seed: u64) -> u64 {
-    let seed = wyhash_start(seed);
     let seed = wyhash_core(bytes, seed);
     wyhash_finish(bytes.len() as u64, seed)
 }
 
 #[inline]
-pub(crate) fn wyhash_start(seed: u64) -> u64 {
+pub(crate) fn mix_with_p0(seed: u64) -> u64 {
     seed ^ P0
 }
 
@@ -79,10 +78,12 @@ pub(crate) fn wyhash_start(seed: u64) -> u64 {
 pub(crate) fn wyhash_core(bytes: &[u8], mut seed: u64) -> u64 {
     for chunk in bytes.chunks_exact(32) {
         seed = wymum(
-            wymum(read64(chunk) ^ seed, read64(&chunk[8..]) ^ P2),
-            wymum(read64(&chunk[16..]) ^ P3, read64(&chunk[24..]) ^ P4),
+            seed ^ P0,
+            wymum(read64(chunk) ^ P1, read64(&chunk[8..]) ^ P2)
+                ^ wymum(read64(&chunk[16..]) ^ P3, read64(&chunk[24..]) ^ P4),
         );
     }
+    seed = mix_with_p0(seed);
 
     let rest = bytes.len() & 31;
     if rest != 0 {
@@ -97,24 +98,18 @@ pub(crate) fn wyhash_core(bytes: &[u8], mut seed: u64) -> u64 {
             }
             2 => {
                 seed = wymum(
-                    wymum(
-                        read64_swapped(&bytes[start..]) ^ seed,
-                        read64_swapped(&bytes[start + 8..]) ^ P2,
-                    ),
-                    read_rest(&bytes[start + 16..]) ^ P3,
-                )
+                    read64_swapped(&bytes[start..]) ^ seed,
+                    read64_swapped(&bytes[start + 8..]) ^ P2,
+                ) ^ wymum(seed, read_rest(&bytes[start + 16..]) ^ P3)
             }
 
             3 => {
                 seed = wymum(
-                    wymum(
-                        read64_swapped(&bytes[start..]) ^ seed,
-                        read64_swapped(&bytes[start + 8..]) ^ P2,
-                    ),
-                    wymum(
-                        read64_swapped(&bytes[start + 16..]) ^ P3,
-                        read_rest(&bytes[start + 24..]) ^ P4,
-                    ),
+                    read64_swapped(&bytes[start..]) ^ seed,
+                    read64_swapped(&bytes[start + 8..]) ^ P2,
+                ) ^ wymum(
+                    read64_swapped(&bytes[start + 16..]) ^ seed,
+                    read_rest(&bytes[start + 24..]) ^ P4,
                 )
             }
             _ => unreachable!(),
