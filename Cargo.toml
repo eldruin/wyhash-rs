@@ -4,9 +4,9 @@ version = "0.1.0"
 authors = ["Diego Barrios Romero <eldruin@gmail.com>"]
 repository = "https://github.com/eldruin/wyhash-rs"
 license = "Apache-2.0"
-description = "Rust implementation of the WyHash fast non-cryptographic hashing algorithm."
+description = "Rust implementation of the WyHash fast portable non-cryptographic hashing algorithm and random number generator."
 readme = "README.md"
-keywords = ["hash", "wyhash"]
+keywords = ["hash", "wyhash", "rng", "random"]
 categories = ["algorithms", "no-std"]
 homepage = "https://github.com/eldruin/wyhash-rs"
 documentation = "https://docs.rs/wyhash"
@@ -22,7 +22,6 @@ include = [
 travis-ci = { repository = "eldruin/wyhash-rs", branch = "master" }
 coveralls = { repository = "eldruin/wyhash-rs", branch = "master", service = "github" }
 maintenance = { status = "actively-developed" }
-
 
 [profile.release]
 lto = true
