@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+...
+
+## [0.2.0] - 2019-03-23
 ### Added
 - Added random number generation function.
 - Added C++ program using the upstream library to generate the results used
@@ -25,3 +28,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 This is the initial release to crates.io.
 
 [Unreleased]: https://github.com/eldruin/wyhash-rs/compare/v0.1.0...HEAD
+[0.2.0]: https://github.com/eldruin/wyhash-rs/compare/v0.1.0...v0.2.0
