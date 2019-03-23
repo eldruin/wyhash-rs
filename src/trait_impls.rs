@@ -18,12 +18,13 @@ impl WyHash {
 impl Hasher for WyHash {
     #[inline]
     fn write(&mut self, bytes: &[u8]) {
-        if bytes.len() == 0 {
+        if bytes.is_empty() {
             self.h = mix_with_p0(self.h);
-        }
-        for bytes in bytes.chunks(u64::max_value() as usize) {
-            self.h = wyhash_core(bytes, self.h);
-            self.size += bytes.len() as u64
+        } else {
+            for bytes in bytes.chunks(u64::max_value() as usize) {
+                self.h = wyhash_core(bytes, self.h);
+                self.size += bytes.len() as u64
+            }
         }
     }
     #[inline]
