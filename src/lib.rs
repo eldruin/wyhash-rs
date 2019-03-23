@@ -73,8 +73,8 @@
 #![no_std]
 #![deny(missing_docs, unsafe_code)]
 
-mod wyhash;
-pub use wyhash::{wyhash, wyrng};
+mod functions;
+pub use functions::{wyhash, wyrng};
 
-mod trait_impls;
-pub use trait_impls::WyHash;
+mod traits;
+pub use traits::WyHash;

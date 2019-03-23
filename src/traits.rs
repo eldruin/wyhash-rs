@@ -1,5 +1,5 @@
 use core::hash::Hasher;
-use wyhash::{mix_with_p0, wyhash_core, wyhash_finish};
+use functions::{mix_with_p0, wyhash_core, wyhash_finish};
 
 /// WyHash hasher
 #[derive(Default)]
