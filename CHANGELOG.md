@@ -7,7 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-...
+### Added
+- Added random number generation function.
+- Added C++ program using the upstream library to generate the results used
+  in the tests.
+
+### Changed
+- The standard library is not necessary any more. The hasher trait implemented
+  now is `core::hash::Hasher`, which is equivalent to `std::hash::Hasher`.
+  The code should continue to work without change but deactivating
+  the default features for `no_std` compatibility is not necessary any more.
+
+- The generated hashes have changed.
 
 ## 0.1.0 - 2019-03-11
 
