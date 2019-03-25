@@ -39,16 +39,18 @@ For questions, issues, feature requests, and other changes, please file an
 
 ## License
 
-Licensed under
+Licensed under either of
 
  * Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or
    http://www.apache.org/licenses/LICENSE-2.0)
+ * MIT license ([LICENSE-MIT](LICENSE-MIT) or
+   http://opensource.org/licenses/MIT) at your option.
 
 ### Contributing
 
 Unless you explicitly state otherwise, any contribution intentionally submitted
 for inclusion in the work by you, as defined in the Apache-2.0 license, shall
-be licensed as above, without any additional terms or conditions.
+be dual licensed as above, without any additional terms or conditions.
 
 [issue-tracker]: https://github.com/eldruin/wyhash-rs/issues
 [original]: https://github.com/wangyi-fudan/wyhash
