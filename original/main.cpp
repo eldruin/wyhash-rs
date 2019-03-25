@@ -26,9 +26,23 @@ void print_prng_table()
     }
 }
 
+void print_prng_next_table()
+{
+    std::cout << "PRNG next table:\n\n";
+    unsigned long long current = 0;
+    for (unsigned int i = 0; i < 10; ++i)
+    {
+        current = wyrng(&current);
+        std::cout << std::hex << current << std::endl;
+    }
+}
+
+
 int main(int, char**)
 {
     print_hash_table();
     std::cout << "\n\n";
     print_prng_table();
+    std::cout << "\n\n";
+    print_prng_next_table();
 }

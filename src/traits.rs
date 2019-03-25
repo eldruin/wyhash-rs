@@ -1,5 +1,6 @@
 use core::hash::Hasher;
-use functions::{mix_with_p0, wyhash_core, wyhash_finish};
+use rand_core::{impls, Error, RngCore};
+use functions::{mix_with_p0, wyhash_core, wyhash_finish, wyrng};
 
 /// WyHash hasher
 #[derive(Default)]
@@ -30,5 +31,25 @@ impl Hasher for WyHash {
     #[inline]
     fn finish(&self) -> u64 {
         wyhash_finish(self.size, self.h)
+    }
+}
+
+/// WyRng random number generator
+#[derive(Default)]
+pub struct WyRng(u64);
+
+impl RngCore for WyRng {
+    fn next_u32(&mut self) -> u32 {
+        self.next_u64() as u32
+    }
+    fn next_u64(&mut self) -> u64 {
+        self.0 = wyrng(self.0);
+        self.0
+    }
+    fn fill_bytes(&mut self, dest: &mut [u8]) {
+        impls::fill_bytes_via_next(self, dest)
+    }
+    fn try_fill_bytes(&mut self, dest: &mut [u8]) -> Result<(), Error> {
+        Ok(self.fill_bytes(dest))
     }
 }

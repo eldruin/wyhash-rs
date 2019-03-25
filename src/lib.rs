@@ -69,12 +69,29 @@
 //!     assert_eq!(0x3e9_9a77_2750_dcbe, random_number);
 //! }
 //! ```
+//!
+//! ### `RngCore` trait usage
+//!
+//! You can also use `rand::Rng`, it is the same
+//!
+//! ```
+//! extern crate rand_core;
+//! extern crate wyhash;
+//! use rand_core::RngCore;
+//! use wyhash::WyRng;
+//!
+//! fn main() {
+//!     let mut rng = WyRng::default();
+//!     assert_eq!(0x111c_b3a7_8f59_a58e, rng.next_u64());
+//! }
 
 #![no_std]
 #![deny(missing_docs, unsafe_code)]
+
+extern crate rand_core;
 
 mod functions;
 pub use functions::{wyhash, wyrng};
 
 mod traits;
-pub use traits::WyHash;
+pub use traits::{WyHash, WyRng};
