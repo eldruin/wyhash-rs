@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-...
+### Added
+- `rand_core::RngCore` trait implementation for the random number generator.
+- MIT license
 
 ## [0.2.0] - 2019-03-23
 ### Added
