@@ -13,7 +13,7 @@ As of now it is the fastest algorithm in the SMHasher benchmark (faster than t1h
 See [here][original].
 
 Furthermore, this algorithm is solid, simple, portable (does not need hardware support, can be
-used in `no_std` environments) and has no dependencies.
+used in `no_std` environments) and has no dependencies (except the traits from `rand_core`).
 
 The generated hashes are equal (see tests) as of the version stated [here][original-version]
 although the speed varies ([PRs are welcome][issue-tracker]).
