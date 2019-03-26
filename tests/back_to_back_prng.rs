@@ -44,7 +44,7 @@ fn check_prng_seq(data: &[u8]) {
 }
 
 #[test]
-fn rngcore_trait_fill_byte() {
+fn rngcore_trait_fill_bytes() {
     let mut rng = WyRng::default();
     let mut data = [0; 80];
     rng.fill_bytes(&mut data);
@@ -53,7 +53,7 @@ fn rngcore_trait_fill_byte() {
 }
 
 #[test]
-fn rngcore_trait_try_fill_byte() {
+fn rngcore_trait_try_fill_bytes() {
     let mut rng = WyRng::default();
     let mut data = [0; 80];
     rng.try_fill_bytes(&mut data).expect("Failed to fill bytes");
