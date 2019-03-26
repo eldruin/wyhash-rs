@@ -32,6 +32,8 @@ fn main() {
 }
 ```
 
+See further examples of the hasher and RNG in the documentation.
+
 ## Support
 
 For questions, issues, feature requests, and other changes, please file an
