@@ -70,4 +70,8 @@ impl SeedableRng for WyRng {
     fn from_seed(seed: Self::Seed) -> Self {
         Self(read64(&seed.0))
     }
+
+    fn seed_from_u64(state: u64) -> Self {
+        Self(state)
+    }
 }

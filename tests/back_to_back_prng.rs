@@ -35,6 +35,15 @@ fn seedablerng_trait() {
     }
 }
 
+#[test]
+fn seedablerng_trait_seed_from_u64() {
+    for (i, original) in ORIGINAL_PRNG.iter().enumerate() {
+        let mut rng = WyRng::seed_from_u64(i as u64);
+        assert_eq!(*original, rng.next_u64());
+    }
+}
+
+
 fn read64_le(data: &[u8]) -> [u64; 10] {
     let mut packed = [0; 10];
     for (i, d) in data.chunks(8).enumerate() {
