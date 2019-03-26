@@ -12,7 +12,7 @@ fn wymum(a: u64, b: u64) -> u64 {
 }
 
 #[inline]
-fn read64(data: &[u8]) -> u64 {
+pub fn read64(data: &[u8]) -> u64 {
     u64::from(data[7]) << 56
         | u64::from(data[6]) << 48
         | u64::from(data[5]) << 40
