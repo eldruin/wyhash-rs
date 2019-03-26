@@ -1,6 +1,6 @@
 use core::hash::Hasher;
-use rand_core::{impls, Error, RngCore};
-use functions::{mix_with_p0, wyhash_core, wyhash_finish, wyrng};
+use functions::{mix_with_p0, read64, wyhash_core, wyhash_finish, wyrng};
+use rand_core::{impls, Error, RngCore, SeedableRng};
 
 /// WyHash hasher
 #[derive(Default)]
@@ -34,6 +34,16 @@ impl Hasher for WyHash {
     }
 }
 
+/// Random number generator seed type
+#[derive(Default)]
+pub struct WyRngSeed(pub [u8; 8]);
+
+impl AsMut<[u8]> for WyRngSeed {
+    fn as_mut(&mut self) -> &mut [u8] {
+        &mut self.0
+    }
+}
+
 /// WyRng random number generator
 #[derive(Default)]
 pub struct WyRng(u64);
@@ -51,5 +61,13 @@ impl RngCore for WyRng {
     }
     fn try_fill_bytes(&mut self, dest: &mut [u8]) -> Result<(), Error> {
         Ok(self.fill_bytes(dest))
+    }
+}
+
+impl SeedableRng for WyRng {
+    type Seed = WyRngSeed;
+
+    fn from_seed(seed: Self::Seed) -> Self {
+        Self(read64(&seed.0))
     }
 }

@@ -72,7 +72,7 @@
 //!
 //! ### `RngCore` trait usage
 //!
-//! You can also use `rand::Rng`, it is the same
+//! You can also use `rand::Rng`, it is the same.
 //!
 //! ```
 //! extern crate rand_core;
@@ -84,6 +84,26 @@
 //!     let mut rng = WyRng::default();
 //!     assert_eq!(0x111c_b3a7_8f59_a58e, rng.next_u64());
 //! }
+//! ```
+//!
+//! ### `SeedableRng` trait usage
+//!
+//! You can also use `rand::SeedableRng`, it is the same.
+//!
+//! ```
+//! extern crate rand_core;
+//! extern crate wyhash;
+//! use rand_core::{SeedableRng, RngCore};
+//! use wyhash::{WyRng, WyRngSeed};
+//!
+//! fn main() {
+//!     // Seeds are 8-byte long.
+//!     let seed = WyRngSeed([0, 1, 2, 3, 4, 5, 6, 7]);
+//!     let mut rng = WyRng::from_seed(seed);
+//!
+//!     assert_eq!(0xd730_1357_74c6_ae31, rng.next_u64());
+//! }
+//! ```
 
 #![no_std]
 #![deny(missing_docs, unsafe_code)]
@@ -94,4 +114,4 @@ mod functions;
 pub use functions::{wyhash, wyrng};
 
 mod traits;
-pub use traits::{WyHash, WyRng};
+pub use traits::{WyHash, WyRng, WyRngSeed};
