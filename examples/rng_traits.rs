@@ -3,7 +3,7 @@
 
 extern crate rand_core;
 extern crate wyhash;
-use rand_core::{SeedableRng, RngCore};
+use rand_core::{RngCore, SeedableRng};
 use wyhash::{WyRng, WyRngSeed};
 fn main() {
     // Seeds are 8-byte long.
