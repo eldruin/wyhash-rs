@@ -43,12 +43,11 @@ fn seedablerng_trait_seed_from_u64() {
     }
 }
 
-
 fn read64_le(data: &[u8]) -> [u64; 10] {
     let mut packed = [0; 10];
-    for (i, d) in data.chunks(8).enumerate() {
-        for di in 0..d.len() {
-            packed[i] |= u64::from(d[di]) << (di * 8);
+    for (i, chunk) in data.chunks(8).enumerate() {
+        for (j, d) in chunk.iter().enumerate() {
+            packed[i] |= u64::from(*d) << (j * 8);
         }
     }
     packed
