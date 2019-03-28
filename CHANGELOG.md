@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+...
+
+## [0.2.1] - 2019-03-28
 ### Added
 - `rand_core::RngCore` and `rand_core::SeedableRng` trait implementations
   for the random number generator.
@@ -30,5 +33,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 This is the initial release to crates.io.
 
-[Unreleased]: https://github.com/eldruin/wyhash-rs/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/eldruin/wyhash-rs/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/eldruin/wyhash-rs/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/eldruin/wyhash-rs/compare/v0.1.0...v0.2.0
