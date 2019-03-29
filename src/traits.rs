@@ -34,16 +34,6 @@ impl Hasher for WyHash {
     }
 }
 
-/// Random number generator seed type
-#[derive(Default)]
-pub struct WyRngSeed(pub [u8; 8]);
-
-impl AsMut<[u8]> for WyRngSeed {
-    fn as_mut(&mut self) -> &mut [u8] {
-        &mut self.0
-    }
-}
-
 /// WyRng random number generator
 #[derive(Default)]
 pub struct WyRng(u64);
@@ -66,10 +56,10 @@ impl RngCore for WyRng {
 }
 
 impl SeedableRng for WyRng {
-    type Seed = WyRngSeed;
+    type Seed = [u8; 8];
 
     fn from_seed(seed: Self::Seed) -> Self {
-        WyRng(read64(&seed.0))
+        WyRng(read64(&seed))
     }
 
     fn seed_from_u64(state: u64) -> Self {

@@ -1,5 +1,5 @@
 extern crate wyhash;
-use wyhash::{wyrng, WyRng, WyRngSeed};
+use wyhash::{wyrng, WyRng};
 extern crate rand_core;
 use rand_core::{RngCore, SeedableRng};
 
@@ -29,7 +29,7 @@ fn rngcore_trait_next_32() {
 #[test]
 fn seedablerng_trait() {
     for (i, original) in ORIGINAL_PRNG.iter().enumerate() {
-        let seed = WyRngSeed([i as u8, 0, 0, 0, 0, 0, 0, 0]);
+        let seed = [i as u8, 0, 0, 0, 0, 0, 0, 0];
         let mut rng = WyRng::from_seed(seed);
         assert_eq!(*original, rng.next_u64());
     }
