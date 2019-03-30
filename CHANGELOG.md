@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ...
 
-## [0.2.1] - 2019-03-28
+## [0.2.1] - 2019-03-30
 ### Added
 - `rand_core::RngCore` and `rand_core::SeedableRng` trait implementations
   for the random number generator.
