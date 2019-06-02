@@ -124,9 +124,11 @@ pub(crate) fn wyhash_finish(length: u64, seed: u64) -> u64 {
 }
 
 /// Pseudo-Random Number Generator (PRNG)
-pub fn wyrng(seed: u64) -> u64 {
-    let seed = seed.wrapping_add(P0);
-    wymum(seed ^ P1, seed)
+///
+/// Note that the input seed is updated
+pub fn wyrng(seed: &mut u64) -> u64 {
+    *seed = seed.wrapping_add(P0);
+    wymum(*seed ^ P1, *seed)
 }
 
 #[cfg(test)]

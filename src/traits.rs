@@ -43,8 +43,7 @@ impl RngCore for WyRng {
         self.next_u64() as u32
     }
     fn next_u64(&mut self) -> u64 {
-        self.0 = wyrng(self.0);
-        self.0
+        wyrng(&mut self.0)
     }
     fn fill_bytes(&mut self, dest: &mut [u8]) {
         impls::fill_bytes_via_next(self, dest)

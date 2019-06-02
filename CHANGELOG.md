@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ...
 
+## [0.3.0] - 2019-06-02
+### Fixed
+- [breaking-change] The random number generator now uses only the updated seed
+  as the internal state instead of the last generated number. This leads to the
+  free function `wyrng` function now receiving a mutable reference to the seed
+  which will be used to represent the state, following the upstream interface.
+  The `RngCore` and `SeedableRng` trait implementations for `WyRng` will return
+  different numbers as in the last published version.
+  See: https://github.com/eldruin/wyhash-rs/issues/1.
+
 ## [0.2.1] - 2019-03-30
 ### Added
 - `rand_core::RngCore` and `rand_core::SeedableRng` trait implementations
@@ -33,6 +43,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 This is the initial release to crates.io.
 
-[Unreleased]: https://github.com/eldruin/wyhash-rs/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/eldruin/wyhash-rs/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/eldruin/wyhash-rs/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/eldruin/wyhash-rs/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/eldruin/wyhash-rs/compare/v0.1.0...v0.2.0
