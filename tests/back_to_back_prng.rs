@@ -6,7 +6,8 @@ use rand_core::{RngCore, SeedableRng};
 #[test]
 fn wyrng_test() {
     for (i, original) in ORIGINAL_PRNG.iter().enumerate() {
-        assert_eq!(*original, wyrng(i as u64));
+        let mut seed = i as u64;
+        assert_eq!(*original, wyrng(&mut seed));
     }
 }
 
@@ -97,13 +98,13 @@ const ORIGINAL_PRNG: [u64; 10] = [
 #[allow(clippy::unreadable_literal)]
 const ORIGINAL_PRNG_SEQ: [u64; 10] = [
     0x111cb3a78f59a58e,
-    0x570ed851fce1ba5c,
-    0xf13773a78a159211,
-    0x1c7fbc880de76e44,
-    0xcb1f7e8e8a235065,
-    0x48cf825a117c0c17,
-    0x23f75cf7415a09ae,
-    0x6b0740c4d9d8d7a7,
-    0xf3dfb6f3def27a27,
-    0x9a31260b4da7de1f,
+    0xceabd938ff4e856d,
+    0x61fb51318f47d2a4,
+    0x78bd03c491909760,
+    0x7c003d7fb14820de,
+    0x8769964729356b1f,
+    0xe214284dc87f9829,
+    0x29a283ebb1b295a2,
+    0xf4e11accbc44be57,
+    0x9a108fea1a03ac0a,
 ];

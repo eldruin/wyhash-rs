@@ -29,10 +29,10 @@ void print_prng_table()
 void print_prng_next_table()
 {
     std::cout << "PRNG next table:\n\n";
-    unsigned long long current = 0;
+    unsigned long long seed = 0;
     for (unsigned int i = 0; i < 10; ++i)
     {
-        current = wyrng(&current);
+        unsigned long long current = wyrng(&seed);
         std::cout << std::hex << current << std::endl;
     }
 }

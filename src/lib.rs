@@ -58,15 +58,19 @@
 //!
 //! ### `wyrng` function usage
 //!
+//! Note that the seed parameter is updated so that it is possible to
+//! generate a sequence of random numbers.
+//!
 //! ```
 //! extern crate wyhash;
 //! use wyhash::wyrng;
 //!
 //! fn main() {
-//!     let seed = 3;
-//!     let random_number = wyrng(seed);
+//!     let mut seed = 3;
+//!     let random_number = wyrng(&mut seed);
 //!
 //!     assert_eq!(0x3e9_9a77_2750_dcbe, random_number);
+//!     assert_eq!(0xa0761d6478bd6432, seed);
 //! }
 //! ```
 //!

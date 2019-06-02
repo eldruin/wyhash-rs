@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-...
+### Fixed
+- [breaking-change] The random number generator now uses only the updated seed
+  as the internal state instead of the last generated number. This leads to the
+  free function `wyrng` function now receiving a mutable reference to the seed
+  which will be used to represent the state, following the upstream interface.
+  The `RngCore` and `SeedableRng` trait implementations for `WyRng` will return
+  different numbers as in the last published version.
+  See: https://github.com/eldruin/wyhash-rs/issues/1.
 
 ## [0.2.1] - 2019-03-30
 ### Added
