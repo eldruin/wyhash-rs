@@ -17,6 +17,7 @@ include = [
     "/CHANGELOG.md",
     "/LICENSE-APACHE",
 ]
+edition = "2018"
 
 [badges]
 travis-ci = { repository = "eldruin/wyhash-rs", branch = "master" }

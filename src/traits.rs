@@ -1,5 +1,5 @@
+use crate::functions::{mix_with_p0, read64, wyhash_core, wyhash_finish, wyrng};
 use core::hash::Hasher;
-use functions::{mix_with_p0, read64, wyhash_core, wyhash_finish, wyrng};
 use rand_core::{impls, Error, RngCore, SeedableRng};
 
 /// WyHash hasher

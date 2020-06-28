@@ -115,10 +115,8 @@
 #![no_std]
 #![deny(missing_docs, unsafe_code)]
 
-extern crate rand_core;
-
 mod functions;
-pub use functions::{wyhash, wyrng};
+pub use crate::functions::{wyhash, wyrng};
 
 mod traits;
-pub use traits::{WyHash, WyRng};
+pub use crate::traits::{WyHash, WyRng};
