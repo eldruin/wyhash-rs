@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ...
 
+## [0.4.1] - 2020-06-28
+### Fixed
+- Formatting of MSRV section in Readme.
+
 ## [0.4.0] - 2020-06-28
 ### Changed
 - [breaking-change] Updated `rand_core` dependency from version `0.4` to version
@@ -49,7 +53,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 This is the initial release to crates.io.
 
-[Unreleased]: https://github.com/eldruin/wyhash-rs/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/eldruin/wyhash-rs/compare/v0.4.1...HEAD
+[0.4.1]: https://github.com/eldruin/wyhash-rs/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/eldruin/wyhash-rs/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/eldruin/wyhash-rs/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/eldruin/wyhash-rs/compare/v0.2.0...v0.2.1
