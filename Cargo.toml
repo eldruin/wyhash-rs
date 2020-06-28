@@ -21,7 +21,6 @@ include = [
 [badges]
 travis-ci = { repository = "eldruin/wyhash-rs", branch = "master" }
 coveralls = { repository = "eldruin/wyhash-rs", branch = "master", service = "github" }
-maintenance = { status = "actively-developed" }
 
 [dependencies]
 rand_core = "0.4"

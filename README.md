@@ -4,7 +4,6 @@
 [![Docs](https://docs.rs/wyhash/badge.svg)](https://docs.rs/wyhash)
 [![Build Status](https://travis-ci.org/eldruin/wyhash-rs.svg?branch=master)](https://travis-ci.org/eldruin/wyhash-rs)
 [![Coverage Status](https://coveralls.io/repos/github/eldruin/wyhash-rs/badge.svg?branch=master)](https://coveralls.io/github/eldruin/wyhash-rs?branch=master)
-![Maintenance Intention](https://img.shields.io/badge/maintenance-actively--developed-brightgreen.svg)
 
 Rust implementation of the [wyhash algorithm by Wang Yi][original].
 
