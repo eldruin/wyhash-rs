@@ -28,13 +28,11 @@
 //! ```
 //! use wyhash::wyhash;
 //!
-//! fn main() {
-//!     let data = [0, 1, 2];
-//!     let seed = 3;
-//!     let hash = wyhash(&data, seed);
+//! let data = [0, 1, 2];
+//! let seed = 3;
+//! let hash = wyhash(&data, seed);
 //!
-//!     assert_eq!(0xb0f9_4152_0b1a_d95d, hash);
-//! }
+//! assert_eq!(0xb0f9_4152_0b1a_d95d, hash);
 //! ```
 //!
 //! ### `Hasher` trait usage
@@ -45,12 +43,10 @@
 //! use core::hash::Hasher;
 //! use wyhash::WyHash;
 //!
-//! fn main() {
-//!     let mut hasher = WyHash::with_seed(3);
-//!     hasher.write(&[0, 1, 2]);
+//! let mut hasher = WyHash::with_seed(3);
+//! hasher.write(&[0, 1, 2]);
 //!
-//!     assert_eq!(0xb0f9_4152_0b1a_d95d, hasher.finish());
-//! }
+//! assert_eq!(0xb0f9_4152_0b1a_d95d, hasher.finish());
 //! ```
 //!
 //! ### `wyrng` function usage
@@ -61,13 +57,11 @@
 //! ```
 //! use wyhash::wyrng;
 //!
-//! fn main() {
-//!     let mut seed = 3;
-//!     let random_number = wyrng(&mut seed);
+//! let mut seed = 3;
+//! let random_number = wyrng(&mut seed);
 //!
-//!     assert_eq!(0x3e9_9a77_2750_dcbe, random_number);
-//!     assert_eq!(0xa0761d6478bd6432, seed);
-//! }
+//! assert_eq!(0x3e9_9a77_2750_dcbe, random_number);
+//! assert_eq!(0xa0761d6478bd6432, seed);
 //! ```
 //!
 //! ### `RngCore` trait usage
@@ -78,10 +72,8 @@
 //! use rand_core::RngCore;
 //! use wyhash::WyRng;
 //!
-//! fn main() {
-//!     let mut rng = WyRng::default();
-//!     assert_eq!(0x111c_b3a7_8f59_a58e, rng.next_u64());
-//! }
+//! let mut rng = WyRng::default();
+//! assert_eq!(0x111c_b3a7_8f59_a58e, rng.next_u64());
 //! ```
 //!
 //! ### `SeedableRng` trait usage
@@ -92,16 +84,14 @@
 //! use rand_core::{SeedableRng, RngCore};
 //! use wyhash::WyRng;
 //!
-//! fn main() {
-//!     // Seeds are 8-byte long.
-//!     let seed = [0, 1, 2, 3, 4, 5, 6, 7];
-//!     let mut rng1 = WyRng::from_seed(seed);
-//!     assert_eq!(0xd730_1357_74c6_ae31, rng1.next_u64());
+//! // Seeds are 8-byte long.
+//! let seed = [0, 1, 2, 3, 4, 5, 6, 7];
+//! let mut rng1 = WyRng::from_seed(seed);
+//! assert_eq!(0xd730_1357_74c6_ae31, rng1.next_u64());
 //!
-//!     // Alternatively you can also use this convenience method:
-//!     let mut rng2 = WyRng::seed_from_u64(3);
-//!     assert_eq!(0x3e9_9a77_2750_dcbe, rng2.next_u64());
-//! }
+//! // Alternatively you can also use this convenience method:
+//! let mut rng2 = WyRng::seed_from_u64(3);
+//! assert_eq!(0x3e9_9a77_2750_dcbe, rng2.next_u64());
 //! ```
 
 #![no_std]
