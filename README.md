@@ -38,6 +38,11 @@ See further examples of the hasher and RNG in the documentation.
 For questions, issues, feature requests, and other changes, please file an
 [issue in the github project][issue-tracker].
 
+# Minimum Supported Rust Version (MSRV)
+
+This crate is guaranteed to compile on stable Rust 1.32 and up. It *might*
+compile with older versions but that may change in any new patch release.
+
 ## License
 
 Licensed under either of
