@@ -1,10 +1,9 @@
 // Example using the `rand_core::RngCore` and `rand_core::SeedableRng` interface.
 // (Same as using `rand::Rng` and `rand::SeedableRng`)
 
-extern crate rand_core;
-extern crate wyhash;
 use rand_core::{RngCore, SeedableRng};
 use wyhash::WyRng;
+
 fn main() {
     // Seeds are 8-byte long.
     let seed = [0, 1, 2, 3, 4, 5, 6, 7];

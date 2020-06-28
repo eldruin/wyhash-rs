@@ -20,7 +20,6 @@ although the speed varies ([PRs are welcome][issue-tracker]).
 ### Usage
 
 ```rust
-extern crate wyhash;
 use wyhash::WyHash;
 use std::hash::Hasher;
 

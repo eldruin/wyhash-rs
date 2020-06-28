@@ -1,6 +1,5 @@
 // Example of using the free functions.
 
-extern crate wyhash;
 use wyhash::{wyhash, wyrng};
 
 fn main() {

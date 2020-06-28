@@ -26,7 +26,6 @@
 //! ### `wyhash` function usage
 //!
 //! ```
-//! extern crate wyhash;
 //! use wyhash::wyhash;
 //!
 //! fn main() {
@@ -43,8 +42,6 @@
 //! You can also use `std::hash::Hasher`, it is the same.
 //!
 //! ```
-//! extern crate core;
-//! extern crate wyhash;
 //! use core::hash::Hasher;
 //! use wyhash::WyHash;
 //!
@@ -62,7 +59,6 @@
 //! generate a sequence of random numbers.
 //!
 //! ```
-//! extern crate wyhash;
 //! use wyhash::wyrng;
 //!
 //! fn main() {
@@ -79,8 +75,6 @@
 //! You can also use `rand::Rng`, it is the same.
 //!
 //! ```
-//! extern crate rand_core;
-//! extern crate wyhash;
 //! use rand_core::RngCore;
 //! use wyhash::WyRng;
 //!
@@ -95,8 +89,6 @@
 //! You can also use `rand::SeedableRng`, it is the same.
 //!
 //! ```
-//! extern crate rand_core;
-//! extern crate wyhash;
 //! use rand_core::{SeedableRng, RngCore};
 //! use wyhash::WyRng;
 //!
