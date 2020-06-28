@@ -23,7 +23,7 @@ travis-ci = { repository = "eldruin/wyhash-rs", branch = "master" }
 coveralls = { repository = "eldruin/wyhash-rs", branch = "master", service = "github" }
 
 [dependencies]
-rand_core = "0.4"
+rand_core = "0.5"
 
 [profile.release]
 lto = true
