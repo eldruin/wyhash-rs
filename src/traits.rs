@@ -3,7 +3,7 @@ use core::hash::Hasher;
 use rand_core::{impls, Error, RngCore, SeedableRng};
 
 /// WyHash hasher
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct WyHash {
     h: u64,
     size: u64,
@@ -35,7 +35,7 @@ impl Hasher for WyHash {
 }
 
 /// WyRng random number generator
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct WyRng(u64);
 
 impl RngCore for WyRng {
