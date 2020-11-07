@@ -94,7 +94,7 @@
 //! assert_eq!(0x3e9_9a77_2750_dcbe, rng2.next_u64());
 //! ```
 
-#![doc(html_root_url = "https://docs.rs/wyhash/0.4.1")]
+#![doc(html_root_url = "https://docs.rs/wyhash/0.4.2")]
 #![no_std]
 #![deny(missing_docs, unsafe_code)]
 
