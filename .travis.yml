@@ -41,6 +41,9 @@ jobs:
     - env: TARGET=thumbv7em-none-eabihf
     - env: TARGET=thumbv7m-none-eabi
 
+  - env: TARGET=x86_64-unknown-linux-gnu
+    rust: beta
+
   allow_failures:
     - env: TARGET=x86_64-unknown-linux-gnu
       rust: nightly
