@@ -2,7 +2,7 @@
 
 [![crates.io](https://img.shields.io/crates/v/wyhash.svg)](https://crates.io/crates/wyhash)
 [![Docs](https://docs.rs/wyhash/badge.svg)](https://docs.rs/wyhash)
-[![Build Status](https://travis-ci.org/eldruin/wyhash-rs.svg?branch=master)](https://travis-ci.org/eldruin/wyhash-rs)
+[![Build Status](https://github.com/eldruin/wyhash-rs/workflows/Build/badge.svg)](https://github.com/eldruin/wyhash-rs/actions?query=workflow%3ABuild)
 [![Coverage Status](https://coveralls.io/repos/github/eldruin/wyhash-rs/badge.svg?branch=master)](https://coveralls.io/github/eldruin/wyhash-rs?branch=master)
 
 Rust implementation of the [wyhash algorithm by Wang Yi][original].

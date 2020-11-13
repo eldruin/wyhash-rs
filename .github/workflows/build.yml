@@ -1,0 +1,61 @@
+on: [push, pull_request]
+
+name: Build
+
+env:
+  RUSTFLAGS: '-D warnings'
+
+jobs:
+  ci-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust: [stable]
+        TARGET:
+          - x86_64-unknown-linux-gnu
+          - x86_64-unknown-linux-musl
+          - arm-unknown-linux-gnueabi # Raspberry Pi 1
+          - armv7-unknown-linux-gnueabihf # Raspberry Pi 2, 3, etc
+          # Bare metal
+          - thumbv6m-none-eabi
+          - thumbv7em-none-eabi
+          - thumbv7em-none-eabihf
+          - thumbv7m-none-eabi
+
+        include:
+          # Test MSRV
+          - rust: 1.32.0
+            TARGET: x86_64-unknown-linux-gnu
+
+          - rust: beta
+            TARGET: x86_64-unknown-linux-gnu
+
+          # Test nightly but don't fail
+          - rust: nightly
+            experimental: true
+            TARGET: x86_64-unknown-linux-gnu
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          target: ${{ matrix.TARGET }}
+          override: true
+
+      - name: Checkout CI scripts
+        uses: actions/checkout@v2
+        with:
+          repository: 'eldruin/rust-driver-ci-scripts'
+          ref: 'master'
+          path: 'ci'
+
+      - run: ./ci/patch-no-std.sh
+        if: ${{ ! contains(matrix.TARGET, 'x86_64') }}
+
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --target=${{ matrix.TARGET }}
