@@ -1,16 +1,21 @@
-on: [push, pull_request]
+on: 
+  push:
+  pull_request:
+  schedule:
+    - cron: 0 0 * * 0
 
 name: Build
 
 env:
-  RUSTFLAGS: '-D warnings'
+  RUSTFLAGS: '--deny warnings'
 
 jobs:
-  ci-linux:
+  build:
+    name: Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        rust: [stable]
+        rust: [stable, beta, nightly, 1.32.0]
         TARGET:
           - x86_64-unknown-linux-gnu
           - x86_64-unknown-linux-musl
@@ -23,17 +28,9 @@ jobs:
           - thumbv7m-none-eabi
 
         include:
-          # Test MSRV
-          - rust: 1.32.0
-            TARGET: x86_64-unknown-linux-gnu
-
-          - rust: beta
-            TARGET: x86_64-unknown-linux-gnu
-
           # Test nightly but don't fail
           - rust: nightly
             experimental: true
-            TARGET: x86_64-unknown-linux-gnu
 
     steps:
       - uses: actions/checkout@v2
@@ -59,3 +56,113 @@ jobs:
         with:
           command: build
           args: --target=${{ matrix.TARGET }}
+
+  checks:
+    name: Checks
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust: [stable, beta]
+        TARGET:
+          - x86_64-unknown-linux-gnu
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          target: ${{ matrix.TARGET }}
+          override: true
+          components: rustfmt
+
+      - name: Doc
+        uses: actions-rs/cargo@v1
+        with:
+          command: doc
+
+      - name: Formatting
+        uses: actions-rs/cargo@v1
+        with:
+          command: fmt
+          args: --all -- --check
+
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust: [1.32.0]
+        TARGET:
+          - x86_64-unknown-linux-gnu
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          target: ${{ matrix.TARGET }}
+          override: true
+          components: clippy
+
+      - name: Clippy
+        uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+    
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust: [stable, beta, nightly, 1.32.0]
+        TARGET: [x86_64-unknown-linux-gnu, x86_64-unknown-linux-musl]
+        include:
+          - rust: nightly
+            experimental: true
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          target: ${{ matrix.TARGET }}
+          override: true
+
+      - name: Test
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --target=${{ matrix.TARGET }}
+
+      - name: Build examples
+        uses: actions-rs/cargo@v1
+        if: contains(matrix.TARGET, 'x86_64')
+        with:
+          command: build
+          args: --target=${{ matrix.TARGET }} --examples
+
+  coverage:
+    name: Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Run cargo-tarpaulin
+        uses: actions-rs/tarpaulin@v0.1
+        with:
+          args: '--out Lcov -- --test-threads 1'
+
+      - name: upload to Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: './lcov.info'
