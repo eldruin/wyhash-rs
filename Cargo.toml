@@ -23,7 +23,7 @@ edition = "2018"
 coveralls = { repository = "eldruin/wyhash-rs", branch = "master", service = "github" }
 
 [dependencies]
-rand_core = "0.5"
+rand_core = "0.6"
 
 [profile.release]
 lto = true

@@ -39,7 +39,7 @@ For questions, issues, feature requests, and other changes, please file an
 
 ## Minimum Supported Rust Version (MSRV)
 
-This crate is guaranteed to compile on stable Rust 1.32 and up. It *might*
+This crate is guaranteed to compile on stable Rust 1.36.0 and up. It *might*
 compile with older versions but that may change in any new patch release.
 
 ## License

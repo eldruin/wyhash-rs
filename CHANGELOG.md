@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-...
+### Changed
+- [breaking-change] Updated `rand_core` dependency from version `0.5` to version
+  `0.6`. This led to an increase in the Minimum Supported Rust Version from
+  `1.32.0` to `1.36.0`.
 
 ## [0.4.2] - 2020-11-07
 ### Added
