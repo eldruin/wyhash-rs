@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+...
+
+## [0.5.0] - 2020-12-17
+
 ### Changed
 - [breaking-change] Updated `rand_core` dependency from version `0.5` to version
   `0.6`. This led to an increase in the Minimum Supported Rust Version from
@@ -62,7 +66,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 This is the initial release to crates.io.
 
-[Unreleased]: https://github.com/eldruin/wyhash-rs/compare/v0.4.2...HEAD
+[Unreleased]: https://github.com/eldruin/wyhash-rs/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/eldruin/wyhash-rs/compare/v0.4.2...v0.5.0
 [0.4.2]: https://github.com/eldruin/wyhash-rs/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/eldruin/wyhash-rs/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/eldruin/wyhash-rs/compare/v0.3.0...v0.4.0
