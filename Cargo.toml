@@ -19,9 +19,6 @@ include = [
 ]
 edition = "2018"
 
-[badges]
-coveralls = { repository = "eldruin/wyhash-rs", branch = "master", service = "github" }
-
 [dependencies]
 rand_core = "0.6"
 
