@@ -22,6 +22,11 @@ edition = "2018"
 [dependencies]
 rand_core = "0.6"
 
+[dev-dependencies]
+metrohash = "1"
+fnv = "1"
+twox-hash = "1"
+
 [profile.release]
 lto = true
 
