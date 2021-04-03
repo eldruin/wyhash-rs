@@ -130,6 +130,13 @@ jobs:
           target: ${{ matrix.TARGET }}
           override: true
 
+      - name: Patch bench dependencies incompatible with MSRV
+        if: matrix.rust == '1.36.0'
+        run: |
+          sed -i "s/fnv/#fnv/g" Cargo.toml
+          sed -i "s/metrohash/#metrohash/g" Cargo.toml
+          sed -i "s/twox-hash/#twox-hash/g" Cargo.toml
+
       - name: Test
         uses: actions-rs/cargo@v1
         with:
