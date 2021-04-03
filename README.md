@@ -32,6 +32,22 @@ fn main() {
 
 See further examples of the hasher and RNG in the documentation.
 
+
+## Performance comparison
+
+A basic performance comparison benchmark against [`fnv`], [`twox-hash`], [`metrohash`]
+and the standard hash_map hash [`collections::hash_map::DefaultHasher`][hash-map-hash]
+is included in the sources and you can run it with nightly Rust:
+
+```
+cargo +nightly bench
+```
+
+[`fnv`]: https://crates.io/crates/fnv
+[`twox-hash`]: https://crates.io/crates/twox-hash
+[`metrohash`]: https://crates.io/crates/metrohash
+[hash-map-hash]: https://doc.rust-lang.org/std/collections/hash_map/struct.DefaultHasher.html
+
 ## Support
 
 For questions, issues, feature requests, and other changes, please file an
