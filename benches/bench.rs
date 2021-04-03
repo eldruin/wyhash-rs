@@ -1,7 +1,7 @@
 #![cfg_attr(test, feature(test))]
 pub extern crate test;
-pub use std::hash::Hasher;
 pub use std::collections::hash_map::DefaultHasher;
+pub use std::hash::Hasher;
 
 pub fn hasher_bench<H>(b: &mut test::Bencher, len: usize)
 where
