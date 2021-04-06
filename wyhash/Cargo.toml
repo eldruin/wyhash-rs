@@ -27,7 +27,5 @@ metrohash = "1"
 fnv = "1"
 twox-hash = "1"
 
-[profile.release]
-lto = true
 
 
