@@ -98,8 +98,9 @@
 #![no_std]
 #![deny(missing_docs, unsafe_code)]
 
-mod functions;
-pub use crate::functions::{wyhash, wyrng};
+/// WyHash version 1
+pub mod v1;
+pub use crate::v1::{wyhash, wyrng};
+pub use crate::v1::{WyHash, WyRng};
 
-mod traits;
-pub use crate::traits::{WyHash, WyRng};
+

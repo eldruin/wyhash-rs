@@ -6,13 +6,13 @@ set(REVISION f221d8199d8f4bacdaf539b1a5138f2ce0dd578e)
 
 file(DOWNLOAD
     https://raw.githubusercontent.com/wangyi-fudan/wyhash/${REVISION}/wyhash.h
-    ${CMAKE_CURRENT_BINARY_DIR}/wyhash.h)
+    ${CMAKE_CURRENT_BINARY_DIR}/wyhash_v1.h)
 
-add_library(original
-    ${CMAKE_CURRENT_SOURCE_DIR}/lib.c
-    ${CMAKE_CURRENT_BINARY_DIR}/wyhash.h)
+add_library(original_v1
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib_v1.c
+    ${CMAKE_CURRENT_BINARY_DIR}/wyhash_v1.h)
 
-target_include_directories(original PRIVATE
+target_include_directories(original_v1 PRIVATE
     ${CMAKE_CURRENT_BINARY_DIR})
 
-install(TARGETS original DESTINATION .)
+install(TARGETS original_v1 DESTINATION .)

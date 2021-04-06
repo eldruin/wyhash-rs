@@ -24,7 +24,7 @@ pub fn read64(data: &[u8]) -> u64 {
 }
 
 #[inline]
-fn read32(data: &[u8]) -> u64 {
+pub fn read32(data: &[u8]) -> u64 {
     u64::from(data[3]) << 24
         | u64::from(data[2]) << 16
         | u64::from(data[1]) << 8
@@ -37,7 +37,7 @@ fn read64_swapped(data: &[u8]) -> u64 {
 }
 
 #[inline]
-fn read_rest(data: &[u8]) -> u64 {
+pub fn read_rest(data: &[u8]) -> u64 {
     // This may be mathematically acceptable but the hashes would change as the byte sorting changes.
     // let mut result = 0;
     // for i in 0..data.len() {

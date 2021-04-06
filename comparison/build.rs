@@ -5,5 +5,5 @@ fn main() {
     let dst = Config::new("original").build();
 
     println!("cargo:rustc-link-search=native={}", dst.display());
-    println!("cargo:rustc-link-lib=static=original");
+    println!("cargo:rustc-link-lib=static=original_v1");
 }

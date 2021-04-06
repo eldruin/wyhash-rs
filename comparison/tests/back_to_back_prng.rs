@@ -1,4 +1,4 @@
-use comparison::ffi::c_wyrng;
+use comparison::ffi::c_wyrng_v1;
 use rand::{RngCore, SeedableRng};
 use wyhash::{wyrng, WyRng};
 
@@ -6,7 +6,7 @@ use wyhash::{wyrng, WyRng};
 fn wyrng_test() {
     for i in 0..10 {
         let mut seed = i as u64;
-        let original = unsafe { c_wyrng(&mut seed) };
+        let original = unsafe { c_wyrng_v1(&mut seed) };
 
         let mut seed = i as u64;
         assert_eq!(original, wyrng(&mut seed));
@@ -18,7 +18,7 @@ fn rngcore_trait_next_64() {
     let mut rng = WyRng::default();
     let mut seed = 0;
     for _ in 0..10 {
-        let original = unsafe { c_wyrng(&mut seed) };
+        let original = unsafe { c_wyrng_v1(&mut seed) };
         assert_eq!(original, rng.next_u64());
     }
 }
@@ -28,7 +28,7 @@ fn rngcore_trait_next_32() {
     let mut rng = WyRng::default();
     let mut seed = 0;
     for _ in 0..10 {
-        let original = unsafe { c_wyrng(&mut seed) };
+        let original = unsafe { c_wyrng_v1(&mut seed) };
         assert_eq!(original as u32, rng.next_u32());
     }
 }
@@ -40,7 +40,7 @@ fn seedablerng_trait() {
         let mut rng = WyRng::from_seed(seed);
 
         let mut seed = i as u64;
-        let original = unsafe { c_wyrng(&mut seed) };
+        let original = unsafe { c_wyrng_v1(&mut seed) };
         assert_eq!(original, rng.next_u64());
     }
 }
@@ -49,7 +49,7 @@ fn seedablerng_trait() {
 fn seedablerng_trait_seed_from_u64() {
     for i in 0..10 {
         let mut seed = i as u64;
-        let original = unsafe { c_wyrng(&mut seed) };
+        let original = unsafe { c_wyrng_v1(&mut seed) };
 
         let mut rng = WyRng::seed_from_u64(i as u64);
         assert_eq!(original, rng.next_u64());
@@ -70,7 +70,7 @@ fn check_prng_seq(data: &[u8]) {
     let packed = read64_le(&data);
     let mut seed = 0;
     for current in packed.iter() {
-        let original = unsafe { c_wyrng(&mut seed) };
+        let original = unsafe { c_wyrng_v1(&mut seed) };
         assert_eq!(original, *current);
     }
 }

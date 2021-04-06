@@ -1,4 +1,4 @@
-use crate::functions::{mix_with_p0, read64, wyhash_core, wyhash_finish, wyrng};
+use crate::v1::functions::{mix_with_p0, read64, wyhash_core, wyhash_finish, wyrng};
 use core::hash::Hasher;
 use rand_core::{impls, Error, RngCore, SeedableRng};
 
