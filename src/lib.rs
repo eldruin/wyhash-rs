@@ -103,4 +103,5 @@ pub mod v1;
 pub use crate::v1::{wyhash, wyrng};
 pub use crate::v1::{WyHash, WyRng};
 
-
+/// WyHash version final 3
+pub mod final3;

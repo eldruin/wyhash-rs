@@ -6,4 +6,5 @@ fn main() {
 
     println!("cargo:rustc-link-search=native={}", dst.display());
     println!("cargo:rustc-link-lib=static=original_v1");
+    println!("cargo:rustc-link-lib=static=original_final3");
 }
