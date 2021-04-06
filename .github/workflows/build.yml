@@ -1,4 +1,4 @@
-on: 
+on:
   push:
   pull_request:
   schedule:
@@ -110,7 +110,7 @@ jobs:
         uses: actions-rs/clippy-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-    
+
   test:
     name: Tests
     runs-on: ubuntu-latest
@@ -149,6 +149,30 @@ jobs:
         with:
           command: build
           args: --target=${{ matrix.TARGET }} --examples
+
+  comparison-test:
+    name: Comparison
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Compare results to original version
+        uses: actions-rs/cargo@v1
+        working-directory: ./comparison
+        with:
+          command: test
+
+      - name: Compile benchmarks
+        uses: actions-rs/cargo@v1
+        working-directory: ./comparison
+        with:
+          command: bench
+          args: --benches --no-run
 
   coverage:
     name: Coverage

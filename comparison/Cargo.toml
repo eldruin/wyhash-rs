@@ -1,0 +1,24 @@
+[package]
+name = "comparison"
+version = "0.1.0"
+authors = ["Diego Barrios Romero <eldruin@gmail.com>"]
+license = "MIT OR Apache-2.0"
+edition = "2018"
+build = "build.rs"
+
+[dependencies]
+wyhash = { path = ".." }
+libc = "0.2"
+rand = "0.8"
+criterion = "0.3"
+fnv = "1"
+metrohash = "1"
+twox-hash = "1"
+
+[build-dependencies]
+cc = "1"
+cmake = "0.1"
+
+[[bench]]
+name = "bench"
+harness = false
