@@ -114,7 +114,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        rust: [1.36.0]
+        rust: [1.42.0]
         TARGET:
           - x86_64-unknown-linux-gnu
 
