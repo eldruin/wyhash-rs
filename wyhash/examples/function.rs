@@ -1,9 +1,10 @@
 // Example of using the free functions.
 
-use wyhash::{wyhash, wyrng};
+use wyhash::{make_secret, wyhash, wyrng};
 
 fn main() {
-    assert_eq!(0xb0f9_4152_0b1a_d95d, wyhash(&[0, 1, 2], 3));
+    let secret = make_secret(0);
+    assert_eq!(0x2614_9574_d5fa_c1fe, wyhash(&[0, 1, 2], 3, secret));
 
     let mut rng_seed = 1;
     let random_number = wyrng(&mut rng_seed);

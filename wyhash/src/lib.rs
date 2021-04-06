@@ -16,7 +16,7 @@
 //!
 //! [issue-tracker]: https://github.com/eldruin/wyhash-rs/issues
 //! [original]: https://github.com/wangyi-fudan/wyhash
-//! [original-version]: https://github.com/eldruin/wyhash-rs/blob/master/original/CMakeLists.txt
+//! [original-version]: https://github.com/eldruin/wyhash-rs/blob/master/comparison/original/CMakeLists.txt
 //!
 //! ## Usage (see also examples folder)
 //!
@@ -26,13 +26,13 @@
 //! ### `wyhash` function usage
 //!
 //! ```
-//! use wyhash::wyhash;
+//! use wyhash::{wyhash, make_secret};
 //!
 //! let data = [0, 1, 2];
 //! let seed = 3;
-//! let hash = wyhash(&data, seed);
+//! let hash = wyhash(&data, seed, make_secret(seed));
 //!
-//! assert_eq!(0xb0f9_4152_0b1a_d95d, hash);
+//! assert_eq!(0xebd4_9a0a_d010_78ce, hash);
 //! ```
 //!
 //! ### `Hasher` trait usage
@@ -41,12 +41,13 @@
 //!
 //! ```
 //! use core::hash::Hasher;
-//! use wyhash::WyHash;
+//! use wyhash::{make_secret, WyHash};
 //!
-//! let mut hasher = WyHash::with_seed(3);
+//! let secret = make_secret(3);
+//! let mut hasher = WyHash::new(4, secret);
 //! hasher.write(&[0, 1, 2]);
 //!
-//! assert_eq!(0xb0f9_4152_0b1a_d95d, hasher.finish());
+//! assert_eq!(0x8301_42a2_4404_5ff4, hasher.finish());
 //! ```
 //!
 //! ### `wyrng` function usage
@@ -100,8 +101,8 @@
 
 /// WyHash version 1
 pub mod v1;
-pub use crate::v1::{wyhash, wyrng};
-pub use crate::v1::{WyHash, WyRng};
 
 /// WyHash version final 3
 pub mod final3;
+pub use crate::final3::{make_secret, wyhash, wyrng};
+pub use crate::final3::{WyHash, WyRng};
