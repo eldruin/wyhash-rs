@@ -1,7 +1,5 @@
-const P0: u64 = 0xa076_1d64_78bd_642f;
-const P1: u64 = 0xe703_7ed1_a0b4_28db;
-const P2: u64 = 0x8ebc_6af0_9c88_c6e3;
-const P3: u64 = 0x5899_65cc_7537_4cc3;
+pub const P0: u64 = 0xa076_1d64_78bd_642f;
+pub const P1: u64 = 0xe703_7ed1_a0b4_28db;
 const P4: u64 = 0x1d8e_4e27_c47d_124f;
 const P5: u64 = 0xeb44_acca_b455_d165;
 

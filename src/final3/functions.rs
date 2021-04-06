@@ -1,4 +1,4 @@
-use crate::v1::functions::{read32, read64};
+use crate::v1::functions::{read32, read64, P0, P1};
 use core::cmp::Ordering;
 
 #[inline]
@@ -112,9 +112,6 @@ pub fn make_secret(seed: u64) -> [u64; 4] {
     }
     secret
 }
-
-const P0: u64 = 0xa076_1d64_78bd_642f;
-const P1: u64 = 0xe703_7ed1_a0b4_28db;
 
 /// Pseudo-Random Number Generator (PRNG)
 ///
