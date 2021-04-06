@@ -30,7 +30,7 @@ impl Hasher for WyHash {
     #[inline]
     fn write(&mut self, bytes: &[u8]) {
         if bytes.is_empty() {
-            self.seed = self.seed ^ self.secret[0];
+            self.seed ^= self.secret[0];
         } else {
             for chunk in bytes.chunks(u64::max_value() as usize) {
                 let (a, b, seed) = wyhash_core(chunk, self.seed, self.secret);

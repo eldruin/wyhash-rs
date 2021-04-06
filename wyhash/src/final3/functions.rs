@@ -1,4 +1,5 @@
 use crate::v1::functions::{read32, read64};
+use core::cmp::Ordering;
 
 #[inline]
 fn wymum(a: u64, b: u64) -> u64 {
@@ -27,38 +28,40 @@ pub fn wyhash_core(bytes: &[u8], seed: u64, secret: [u64; 4]) -> (u64, u64, u64)
     let length = bytes.len();
     if length <= 16 {
         if length >= 4 {
-            a = u64::from(read32(bytes)) << 32 | u64::from(read32(&bytes[((length >> 3) << 2)..]));
-            b = u64::from(read32(&bytes[(length - 4)..])) << 32
-                | u64::from(read32(&bytes[(length - 4 - ((length >> 3) << 2))..]));
+            a = read32(bytes) << 32 | read32(&bytes[((length >> 3) << 2)..]);
+            b = read32(&bytes[(length - 4)..]) << 32
+                | read32(&bytes[(length - 4 - ((length >> 3) << 2))..]);
         } else if length > 0 {
             a = read_up_to_24(bytes);
         }
     } else {
         let mut rest_start = length - (length % 48);
-        if length > 48 {
-            let mut see1 = seed;
-            let mut see2 = seed;
+        match length.cmp(&48) {
+            Ordering::Greater => {
+                let mut see1 = seed;
+                let mut see2 = seed;
 
-            let mut chunks = bytes.chunks(48).peekable();
-            while let Some(chunk) = chunks.next() {
-                // Skip the last up to 48
-                if chunks.peek().is_some() {
-                    seed = wymum(read64(chunk) ^ secret[1], read64(&chunk[8..]) ^ seed);
-                    see1 = wymum(
-                        read64(&chunk[16..]) ^ secret[2],
-                        read64(&chunk[24..]) ^ see1,
-                    );
-                    see2 = wymum(
-                        read64(&chunk[32..]) ^ secret[3],
-                        read64(&chunk[40..]) ^ see2,
-                    );
-                } else if chunk.len() == 48 {
-                    rest_start -= 48;
+                let mut chunks = bytes.chunks(48).peekable();
+                while let Some(chunk) = chunks.next() {
+                    // Skip the last up to 48
+                    if chunks.peek().is_some() {
+                        seed = wymum(read64(chunk) ^ secret[1], read64(&chunk[8..]) ^ seed);
+                        see1 = wymum(
+                            read64(&chunk[16..]) ^ secret[2],
+                            read64(&chunk[24..]) ^ see1,
+                        );
+                        see2 = wymum(
+                            read64(&chunk[32..]) ^ secret[3],
+                            read64(&chunk[40..]) ^ see2,
+                        );
+                    } else if chunk.len() == 48 {
+                        rest_start -= 48;
+                    }
                 }
+                seed ^= see1 ^ see2;
             }
-            seed ^= see1 ^ see2;
-        } else if length == 48 {
-            rest_start -= 48;
+            Ordering::Equal => rest_start -= 48,
+            _ => (),
         }
 
         let mut chunks = bytes[rest_start..].chunks(16).peekable();
@@ -107,7 +110,7 @@ pub fn make_secret(seed: u64) -> [u64; 4] {
             }
         }
     }
-    return secret;
+    secret
 }
 
 const P0: u64 = 0xa076_1d64_78bd_642f;
