@@ -133,9 +133,12 @@ jobs:
       - name: Patch bench dependencies incompatible with MSRV
         if: matrix.rust == '1.36.0'
         run: |
-          sed -i "s/fnv/#fnv/g" Cargo.toml
-          sed -i "s/metrohash/#metrohash/g" Cargo.toml
-          sed -i "s/twox-hash/#twox-hash/g" Cargo.toml
+          sed -i "s/fnv/#fnv/g" wyhash/Cargo.toml
+          sed -i "s/fnv/#fnv/g" comparison/Cargo.toml
+          sed -i "s/metrohash/#metrohash/g" wyhash/Cargo.toml
+          sed -i "s/metrohash/#metrohash/g" comparison/Cargo.toml
+          sed -i "s/twox-hash/#twox-hash/g" wyhash/Cargo.toml
+          sed -i "s/twox-hash/#twox-hash/g" comparison/Cargo.toml
 
       - name: Test
         uses: actions-rs/cargo@v1
