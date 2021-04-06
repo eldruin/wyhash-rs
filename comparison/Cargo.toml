@@ -7,7 +7,7 @@ edition = "2018"
 build = "build.rs"
 
 [dependencies]
-wyhash = { path = ".." }
+wyhash = { path = "../wyhash" }
 libc = "0.2"
 rand = "0.8"
 criterion = "0.3"
