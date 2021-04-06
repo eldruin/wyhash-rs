@@ -108,4 +108,4 @@ impl_bench!(metro128, metrohash::MetroHash128);
 impl_bench!(fnvh, fnv::FnvHasher);
 impl_bench!(xxh, twox_hash::XxHash);
 
-impl_bench!(wyhash_bench, wyhash::WyHash);
+impl_bench!(wyhash_bench, wyhash::v1::WyHash);

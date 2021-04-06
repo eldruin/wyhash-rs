@@ -2,7 +2,7 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: 0 0 * * 0
+    - cron: 0 0 * * 2
 
 name: Build
 
@@ -51,11 +51,33 @@ jobs:
       - run: ./ci/patch-no-std.sh
         if: ${{ ! contains(matrix.TARGET, 'x86_64') }}
 
+      - name: Patch bench dependencies incompatible with MSRV
+        if: matrix.rust == '1.36.0'
+        run: |
+          sed -i "s/fnv/#fnv/g" Cargo.toml
+          sed -i "s/fnv/#fnv/g" comparison/Cargo.toml
+          sed -i "s/metrohash/#metrohash/g" Cargo.toml
+          sed -i "s/metrohash/#metrohash/g" comparison/Cargo.toml
+          sed -i "s/twox-hash/#twox-hash/g" Cargo.toml
+          sed -i "s/twox-hash/#twox-hash/g" comparison/Cargo.toml
+
+      - name: Build workspace
+        if: matrix.rust != '1.36.0' && matrix.TARGET == 'x86_64-unknown-linux-gnu'
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --target=${{ matrix.TARGET }} --workspace
+
       - name: Build
         uses: actions-rs/cargo@v1
         with:
           command: build
           args: --target=${{ matrix.TARGET }}
+
+      - name: Build MSRV comparison
+        if: matrix.rust == '1.36.0' && matrix.TARGET == 'x86_64-unknown-linux-gnu'
+        working-directory: ./comparison
+        run: cargo build --target=${{ matrix.TARGET }}
 
   checks:
     name: Checks
@@ -111,6 +133,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Clippy comparison
+        working-directory: ./comparison
+        run:  cargo clippy
+
   test:
     name: Tests
     runs-on: ubuntu-latest
@@ -133,18 +159,32 @@ jobs:
       - name: Patch bench dependencies incompatible with MSRV
         if: matrix.rust == '1.36.0'
         run: |
-          sed -i "s/fnv/#fnv/g" wyhash/Cargo.toml
+          sed -i "s/fnv/#fnv/g" Cargo.toml
           sed -i "s/fnv/#fnv/g" comparison/Cargo.toml
-          sed -i "s/metrohash/#metrohash/g" wyhash/Cargo.toml
+          sed -i "s/metrohash/#metrohash/g" Cargo.toml
           sed -i "s/metrohash/#metrohash/g" comparison/Cargo.toml
-          sed -i "s/twox-hash/#twox-hash/g" wyhash/Cargo.toml
+          sed -i "s/twox-hash/#twox-hash/g" Cargo.toml
           sed -i "s/twox-hash/#twox-hash/g" comparison/Cargo.toml
 
       - name: Test
+        if: matrix.rust != '1.36.0'
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --target=${{ matrix.TARGET }} --workspace
+
+      - name: Test MSRV
+        if: matrix.rust == '1.36.0'
         uses: actions-rs/cargo@v1
         with:
           command: test
           args: --target=${{ matrix.TARGET }}
+
+      - name: Test MSRV comparison
+        if: matrix.rust == '1.36.0'
+        working-directory: ./comparison
+        run: |
+          cargo test --target=${{ matrix.TARGET }}
 
       - name: Build examples
         uses: actions-rs/cargo@v1
@@ -164,18 +204,9 @@ jobs:
           toolchain: stable
           override: true
 
-      - name: Compare results to original version
-        uses: actions-rs/cargo@v1
-        working-directory: ./comparison
-        with:
-          command: test
-
       - name: Compile benchmarks
-        uses: actions-rs/cargo@v1
         working-directory: ./comparison
-        with:
-          command: bench
-          args: --benches --no-run
+        run: cargo bench --benches --no-run
 
   coverage:
     name: Coverage
