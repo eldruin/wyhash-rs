@@ -206,8 +206,8 @@ jobs:
           command: build
           args: --target=${{ matrix.TARGET }} --examples
 
-  comparison-test:
-    name: Comparison
+  benchmark-test:
+    name: Benchmarks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
