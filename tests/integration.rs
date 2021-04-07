@@ -12,7 +12,12 @@ fn v1_default_constructed() {
 
 #[test]
 fn final3_default_constructed() {
+    #[cfg(not(feature = "mum32bit"))]
+    let expected = 0x22a2_d5db_3856_770f;
+    #[cfg(feature = "mum32bit")]
+    let expected = 0x6a2c_d506_62d4_cdf1;
+
     let mut hasher = final3::WyHash::default();
     hasher.write(&[0]);
-    assert_eq!(0x22a2_d5db_3856_770f, hasher.finish());
+    assert_eq!(expected, hasher.finish());
 }

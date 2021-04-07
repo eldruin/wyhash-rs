@@ -28,6 +28,9 @@ metrohash = "1"
 fnv = "1"
 twox-hash = "1"
 
+[features]
+mum32bit = []
+
 [workspace]
 members = ["comparison"]
 

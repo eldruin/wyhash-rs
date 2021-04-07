@@ -1,0 +1,8 @@
+[default_coverage]
+features = ""
+
+[mum32bit_coverage]
+features = "comparison/mum32bit"
+
+[report]
+out = ["Lcov"]

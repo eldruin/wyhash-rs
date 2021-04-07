@@ -1,6 +1,25 @@
 use crate::v1::functions::{read32, read64, P0, P1};
 use core::cmp::Ordering;
 
+#[cfg(feature = "mum32bit")]
+#[inline]
+fn wyrotate(x: u64) -> u64 {
+    (x >> 32) | (x << 32)
+}
+
+#[cfg(feature = "mum32bit")]
+#[inline]
+fn wymum(a: u64, b: u64) -> u64 {
+    let hh = (a >> 32) * (b >> 32);
+    let hl = (a >> 32) * (b & 0xFFFF_FFFF);
+    let lh = (a & 0xFFFF_FFFF) * (b >> 32);
+    let ll = (a & 0xFFFF_FFFF) * (b & 0xFFFF_FFFF);
+    let a = wyrotate(hl) ^ hh;
+    let b = wyrotate(lh) ^ ll;
+    a ^ b
+}
+
+#[cfg(not(feature = "mum32bit"))]
 #[inline]
 fn wymum(a: u64, b: u64) -> u64 {
     let r = u128::from(a) * u128::from(b);

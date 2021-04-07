@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Ported `final3` algorithm version.
+- Enable better performance on 32-bit systems via the `mum32bit` feature.
 - Benchmarks.
 
 ### Changed

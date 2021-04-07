@@ -18,6 +18,13 @@
 //! [original]: https://github.com/wangyi-fudan/wyhash
 //! [original-version]: https://github.com/eldruin/wyhash-rs/blob/master/comparison/original/CMakeLists.txt
 //!
+//! ## Crate features
+//!
+//! By default this crate uses 128-bit integer multiplications.
+//! To restrict that to 64 bits you can enable the feature `mum32bit`. This offers better
+//! performance on 32-bit architectures.
+//! Beware that this feature produces different the results.
+//!
 //! ## Usage (see also examples folder)
 //!
 //! For the hashing function you can use either the free function or the
@@ -32,7 +39,7 @@
 //! let seed = 3;
 //! let hash = wyhash(&data, seed, make_secret(seed));
 //!
-//! assert_eq!(0xebd4_9a0a_d010_78ce, hash);
+//! println!("{:x}", hash); // prints ebd49a0ad01078ce
 //! ```
 //!
 //! ### `Hasher` trait usage
@@ -47,7 +54,7 @@
 //! let mut hasher = WyHash::new(4, secret);
 //! hasher.write(&[0, 1, 2]);
 //!
-//! assert_eq!(0x8301_42a2_4404_5ff4, hasher.finish());
+//! println!("{:x}", hasher.finish()); // prints 830142a244045ff4
 //! ```
 //!
 //! ### `wyrng` function usage
@@ -61,8 +68,8 @@
 //! let mut seed = 3;
 //! let random_number = wyrng(&mut seed);
 //!
-//! assert_eq!(0x3e9_9a77_2750_dcbe, random_number);
-//! assert_eq!(0xa0761d6478bd6432, seed);
+//! println!("{:x}", random_number); // prints 3e99a772750dcbe
+//! println!("{:x}", seed); //prints a0761d6478bd6432
 //! ```
 //!
 //! ### `RngCore` trait usage
@@ -74,7 +81,7 @@
 //! use wyhash::WyRng;
 //!
 //! let mut rng = WyRng::default();
-//! assert_eq!(0x111c_b3a7_8f59_a58e, rng.next_u64());
+//! println!("{:x}", rng.next_u64()); // prints 111cb3a78f59a58e
 //! ```
 //!
 //! ### `SeedableRng` trait usage
@@ -88,11 +95,11 @@
 //! // Seeds are 8-byte long.
 //! let seed = [0, 1, 2, 3, 4, 5, 6, 7];
 //! let mut rng1 = WyRng::from_seed(seed);
-//! assert_eq!(0xd730_1357_74c6_ae31, rng1.next_u64());
+//! println!("{:x}", rng1.next_u64()); // prints d730135774c6ae31
 //!
 //! // Alternatively you can also use this convenience method:
 //! let mut rng2 = WyRng::seed_from_u64(3);
-//! assert_eq!(0x3e9_9a77_2750_dcbe, rng2.next_u64());
+//! println!("{:x}", rng2.next_u64()); // prints 3e99a772750dcbe
 //! ```
 
 #![doc(html_root_url = "https://docs.rs/wyhash/0.5.0")]

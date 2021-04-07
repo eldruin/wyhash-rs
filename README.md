@@ -17,7 +17,14 @@ used in `no_std` environments) and has no dependencies (except the traits from `
 The generated hashes are equal (see tests) as of the version stated [here][original-version]
 although the speed varies ([PRs are welcome][issue-tracker]).
 
-### Usage
+## Crate features
+
+By default this crate uses 128-bit integer multiplications.
+To restrict that to 64 bits you can enable the feature `mum32bit`. This offers better
+performance on 32-bit architectures.
+Beware that this feature produces different results.
+
+## Usage
 
 This crate provides free functions as well as implementations of the `Hasher`, `Rng` and
 `SeedableRng` traits.

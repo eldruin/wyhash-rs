@@ -23,5 +23,9 @@ add_library(original_final3
     ${CMAKE_CURRENT_SOURCE_DIR}/lib_final3.c
     ${CMAKE_CURRENT_BINARY_DIR}/wyhash_final3.h)
 
-install(TARGETS original_v1 original_final3 DESTINATION .)
+add_library(original_final3_32bit_mum
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib_final3_32bit_mum.c
+    ${CMAKE_CURRENT_BINARY_DIR}/wyhash_final3.h)
+
+install(TARGETS original_v1 original_final3 original_final3_32bit_mum DESTINATION .)
 

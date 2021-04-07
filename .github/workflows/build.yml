@@ -173,6 +173,13 @@ jobs:
           command: test
           args: --target=${{ matrix.TARGET }} --workspace
 
+      - name: Test 32-bit mum
+        if: matrix.rust != '1.36.0' && matrix.TARGET != 'x86_64-unknown-linux-musl' # musl-gcc is not installed
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --target=${{ matrix.TARGET }} --workspace --features comparison/mum32bit
+
       - name: Test MSRV
         if: matrix.rust == '1.36.0' || matrix.TARGET == 'x86_64-unknown-linux-musl'
         uses: actions-rs/cargo@v1
@@ -185,6 +192,12 @@ jobs:
         working-directory: ./comparison
         run: |
           cargo test --target=${{ matrix.TARGET }}
+
+      - name: Test MSRV comparison 32-bit mum
+        if: matrix.rust == '1.36.0' && matrix.TARGET != 'x86_64-unknown-linux-musl' # musl-gcc is not installed
+        working-directory: ./comparison
+        run: |
+          cargo test --target=${{ matrix.TARGET }} --features mum32bit
 
       - name: Build examples
         uses: actions-rs/cargo@v1
@@ -224,7 +237,7 @@ jobs:
       - name: Run cargo-tarpaulin
         uses: actions-rs/tarpaulin@v0.1
         with:
-          args: '--workspace --out Lcov -- --test-threads 1'
+          args: '--workspace -- --test-threads 1'
 
       - name: upload to Coveralls
         uses: coverallsapp/github-action@master

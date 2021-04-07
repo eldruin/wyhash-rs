@@ -19,6 +19,9 @@ twox-hash = "1"
 cc = "1"
 cmake = "0.1"
 
+[features]
+mum32bit = ["wyhash/mum32bit"]
+
 [[bench]]
 name = "bench"
 harness = false
