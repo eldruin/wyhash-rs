@@ -74,11 +74,6 @@ jobs:
           command: build
           args: --target=${{ matrix.TARGET }}
 
-      - name: Build MSRV comparison
-        if: matrix.rust == '1.36.0' && matrix.TARGET == 'x86_64-unknown-linux-gnu'
-        working-directory: ./comparison
-        run: cargo build --target=${{ matrix.TARGET }}
-
   checks:
     name: Checks
     runs-on: ubuntu-latest
@@ -186,18 +181,6 @@ jobs:
         with:
           command: test
           args: --target=${{ matrix.TARGET }}
-
-      - name: Test MSRV comparison
-        if: matrix.rust == '1.36.0' && matrix.TARGET != 'x86_64-unknown-linux-musl' # musl-gcc is not installed
-        working-directory: ./comparison
-        run: |
-          cargo test --target=${{ matrix.TARGET }}
-
-      - name: Test MSRV comparison 32-bit mum
-        if: matrix.rust == '1.36.0' && matrix.TARGET != 'x86_64-unknown-linux-musl' # musl-gcc is not installed
-        working-directory: ./comparison
-        run: |
-          cargo test --target=${{ matrix.TARGET }} --features mum32bit
 
       - name: Build examples
         uses: actions-rs/cargo@v1
