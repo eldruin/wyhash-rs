@@ -74,7 +74,7 @@ fn benchmark(c: &mut Criterion) {
             BenchmarkId::new("wyhash v1 (Rust function)", length),
             input,
             |b, input| {
-                b.iter(|| v1::wyhash(&input, 0));
+                b.iter(|| v1::wyhash(input, 0));
             },
         );
 
@@ -103,7 +103,7 @@ fn benchmark(c: &mut Criterion) {
             BenchmarkId::new("wyhash final3 (Rust function)", length),
             input,
             |b, input| {
-                b.iter(|| final3::wyhash(&input, 0, secret));
+                b.iter(|| final3::wyhash(input, 0, secret));
             },
         );
 
