@@ -1,4 +1,3 @@
-#[link(name = "original", kind = "static")]
 pub mod ffi {
     use libc::{c_ulonglong, c_void};
 
