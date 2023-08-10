@@ -108,4 +108,7 @@ impl_bench!(metro128, metrohash::MetroHash128);
 impl_bench!(fnvh, fnv::FnvHasher);
 impl_bench!(xxh, twox_hash::XxHash);
 
+//xxhash-rust xxh3
+impl_bench!(xxh3, xxhash_rust::xxh3::Xxh3);
+
 impl_bench!(wyhash_bench, wyhash::v1::WyHash);

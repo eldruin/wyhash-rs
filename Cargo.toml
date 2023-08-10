@@ -28,6 +28,7 @@ metrohash = "1"
 fnv = "1"
 # pinned otherwise it pulls getrandom with the std feature. With the dep resolver in Rust 1.36.0 this does not build on no-std.
 twox-hash = "1.6.0"
+xxhash-rust = { version = "0.8.6", features = ["xxh3"] }
 
 [features]
 mum32bit = []
