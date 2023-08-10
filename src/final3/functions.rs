@@ -111,7 +111,7 @@ pub fn make_secret(seed: u64) -> [u64; 4] {
         loop {
             secret[i] = 0;
             for j in (0..64).step_by(8) {
-                secret[i] |= u64::from(c[((wyrng(&mut seed) as usize) % c.len())]) << j;
+                secret[i] |= u64::from(c[(wyrng(&mut seed) as usize) % c.len()]) << j;
             }
             if secret[i] % 2 == 0 {
                 continue;
