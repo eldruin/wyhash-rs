@@ -106,9 +106,12 @@ impl_bench!(std_hash_map, DefaultHasher);
 impl_bench!(metro64, metrohash::MetroHash64);
 impl_bench!(metro128, metrohash::MetroHash128);
 impl_bench!(fnvh, fnv::FnvHasher);
-impl_bench!(xxh, twox_hash::XxHash);
+// impl_bench!(xxh, twox_hash::XxHash);
 
 //xxhash-rust xxh3
 impl_bench!(xxh3, xxhash_rust::xxh3::Xxh3);
 
-impl_bench!(wyhash_bench, wyhash::v1::WyHash);
+//impl_bench!(wyhash_bench, wyhash::v1::WyHash);
+
+impl_bench!(wyhash_bench3, wyhash::final3::WyHash);
+
