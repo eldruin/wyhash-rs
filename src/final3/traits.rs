@@ -46,7 +46,7 @@ impl Hasher for WyHash {
     }
     #[inline]
     fn finish(&self) -> u64 {
-        wyhash_finish(self.a, self.b, self.seed, self.size as u64, self.secret[1])
+        wyhash_finish(self.a, self.b, self.seed, self.size, self.secret[1])
     }
 }
 
