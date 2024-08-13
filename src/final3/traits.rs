@@ -4,7 +4,7 @@ use core::hash::Hasher;
 use rand_core::{impls, Error, RngCore, SeedableRng};
 
 /// WyHash hasher
-#[derive(Clone)]
+#[derive(Clone, Debug, PartialEq, Eq, Copy, Hash)]
 pub struct WyHash {
     seed: u64,
     a: u64,
@@ -51,7 +51,7 @@ impl Hasher for WyHash {
 }
 
 /// WyRng random number generator
-#[derive(Default, Clone)]
+#[derive(Default, Clone, Copy, Debug, PartialEq, Eq)]
 pub struct WyRng(u64);
 
 impl RngCore for WyRng {
