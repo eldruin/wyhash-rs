@@ -4,6 +4,7 @@ use rand_core::{impls, Error, RngCore, SeedableRng};
 
 /// WyHash hasher
 #[derive(Default, Clone, Copy, Debug, PartialEq, Eq, Ord, PartialOrd, Hash)]
+#[cfg_attr(feature = "mem_dbg", derive(mem_dbg::MemSize, mem_dbg::MemDbg))]
 pub struct WyHash {
     h: u64,
     size: u64,
@@ -36,6 +37,7 @@ impl Hasher for WyHash {
 
 /// WyRng random number generator
 #[derive(Default, Clone, Copy, Debug, PartialEq, Eq, Ord, PartialOrd, Hash)]
+#[cfg_attr(feature = "mem_dbg", derive(mem_dbg::MemSize, mem_dbg::MemDbg))]
 pub struct WyRng(u64);
 
 impl RngCore for WyRng {

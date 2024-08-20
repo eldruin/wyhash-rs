@@ -103,7 +103,7 @@
 //! ```
 
 #![doc(html_root_url = "https://docs.rs/wyhash/0.5.0")]
-#![no_std]
+#![cfg_attr(not(feature = "std"), no_std)]
 #![deny(missing_docs, unsafe_code)]
 
 /// WyHash version 1

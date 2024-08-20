@@ -21,6 +21,7 @@ include = [
 edition = "2018"
 
 [dependencies]
+mem_dbg = {version="0.2.4", optional=true}
 rand_core = "0.6"
 
 [dev-dependencies]
@@ -31,6 +32,8 @@ twox-hash = "=1.6.0"
 
 [features]
 mum32bit = []
+std = []
+mem_dbg = ["dep:mem_dbg", "std"]
 
 [workspace]
 members = ["comparison"]
