@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Enable better performance on 32-bit systems via the `mum32bit` feature.
 - Benchmarks.
 - Added derives for `Debug`, `PartialEq`, `Eq`, `PartialOrd`, `Ord`, `Copy`, and `Hash` for all structs where applicable in the crate.
+- Added optional support for [`mem_dbg`](https://github.com/zommiommy/mem_dbg-rs), a memory requirements estimation tool.
+- Added feature `mem_dbg` to enable the optional support for `mem_dbg`.
+- Added feature `std` to enable optionally the standard library.
 
 ### Changed
 - [breaking-change] Changed default version to `final3`. The previous version
