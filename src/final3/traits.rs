@@ -36,7 +36,7 @@ impl Hasher for WyHash {
     #[inline]
     fn write(&mut self, bytes: &[u8]) {
         self.seed ^= self.secret[0];
-        for chunk in bytes.chunks(u64::max_value() as usize) {
+        for chunk in bytes.chunks(u64::MAX as usize) {
             let (a, b, seed) = wyhash_core(chunk, self.seed, self.secret);
             self.a = a;
             self.b = b;
@@ -46,7 +46,7 @@ impl Hasher for WyHash {
     }
     #[inline]
     fn finish(&self) -> u64 {
-        wyhash_finish(self.a, self.b, self.seed, self.size as u64, self.secret[1])
+        wyhash_finish(self.a, self.b, self.seed, self.size, self.secret[1])
     }
 }
 

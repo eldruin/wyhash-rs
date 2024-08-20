@@ -22,7 +22,7 @@ impl Hasher for WyHash {
         if bytes.is_empty() {
             self.h = mix_with_p0(self.h);
         } else {
-            for bytes in bytes.chunks(u64::max_value() as usize) {
+            for bytes in bytes.chunks(u64::MAX as usize) {
                 self.h = wyhash_core(bytes, self.h);
                 self.size += bytes.len() as u64
             }
