@@ -4,7 +4,7 @@ use core::hash::Hasher;
 use rand_core::{impls, Error, RngCore, SeedableRng};
 
 /// WyHash hasher
-#[derive(Clone)]
+#[derive(Clone, Debug, PartialEq, Eq, Ord, PartialOrd, Copy, Hash)]
 pub struct WyHash {
     seed: u64,
     a: u64,
@@ -36,7 +36,7 @@ impl Hasher for WyHash {
     #[inline]
     fn write(&mut self, bytes: &[u8]) {
         self.seed ^= self.secret[0];
-        for chunk in bytes.chunks(u64::max_value() as usize) {
+        for chunk in bytes.chunks(u64::MAX as usize) {
             let (a, b, seed) = wyhash_core(chunk, self.seed, self.secret);
             self.a = a;
             self.b = b;
@@ -46,12 +46,12 @@ impl Hasher for WyHash {
     }
     #[inline]
     fn finish(&self) -> u64 {
-        wyhash_finish(self.a, self.b, self.seed, self.size as u64, self.secret[1])
+        wyhash_finish(self.a, self.b, self.seed, self.size, self.secret[1])
     }
 }
 
 /// WyRng random number generator
-#[derive(Default, Clone)]
+#[derive(Default, Clone, Copy, Debug, PartialEq, Eq, Ord, PartialOrd, Hash)]
 pub struct WyRng(u64);
 
 impl RngCore for WyRng {

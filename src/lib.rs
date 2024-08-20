@@ -33,7 +33,7 @@
 //! ### `wyhash` function usage
 //!
 //! ```
-//! use wyhash::{wyhash, make_secret};
+//! use wyhash::{make_secret, wyhash};
 //!
 //! let data = [0, 1, 2];
 //! let seed = 3;
@@ -89,7 +89,7 @@
 //! You can also use `rand::SeedableRng`, it is the same.
 //!
 //! ```
-//! use rand_core::{SeedableRng, RngCore};
+//! use rand_core::{RngCore, SeedableRng};
 //! use wyhash::WyRng;
 //!
 //! // Seeds are 8-byte long.

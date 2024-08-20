@@ -3,7 +3,7 @@ use core::hash::Hasher;
 use rand_core::{impls, Error, RngCore, SeedableRng};
 
 /// WyHash hasher
-#[derive(Default, Clone)]
+#[derive(Default, Clone, Copy, Debug, PartialEq, Eq, Ord, PartialOrd, Hash)]
 pub struct WyHash {
     h: u64,
     size: u64,
@@ -22,7 +22,7 @@ impl Hasher for WyHash {
         if bytes.is_empty() {
             self.h = mix_with_p0(self.h);
         } else {
-            for bytes in bytes.chunks(u64::max_value() as usize) {
+            for bytes in bytes.chunks(u64::MAX as usize) {
                 self.h = wyhash_core(bytes, self.h);
                 self.size += bytes.len() as u64
             }
@@ -35,7 +35,7 @@ impl Hasher for WyHash {
 }
 
 /// WyRng random number generator
-#[derive(Default, Clone)]
+#[derive(Default, Clone, Copy, Debug, PartialEq, Eq, Ord, PartialOrd, Hash)]
 pub struct WyRng(u64);
 
 impl RngCore for WyRng {
