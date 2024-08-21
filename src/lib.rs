@@ -112,4 +112,4 @@ pub mod v1;
 /// WyHash version final 3
 pub mod final3;
 pub use crate::final3::{make_secret, wyhash, wyrng};
-pub use crate::final3::{WyHash, WyRng};
+pub use crate::final3::{WyHash, WyRng, WyHasherBuilder};
