@@ -4,9 +4,10 @@ use comparison::ffi::c_wyrng_final3;
 use comparison::ffi::c_wyrng_final3_32bit_mum;
 use comparison::ffi::c_wyrng_v1;
 use rand::{RngCore, SeedableRng, TryRngCore};
+use wyhash::final3::wyrng as wyrng_final3;
+use wyhash::final3::WyRng as WyRngFinal3;
 use wyhash::v1::wyrng as wyrng_v1;
 use wyhash::v1::WyRng as WyRngV1;
-use wyhash::{wyrng, WyRng};
 
 macro_rules! impl_tests {
     ($mod_name: ident, $hasher: ty, $function: ident, $c_function: ident) => {
@@ -109,7 +110,7 @@ macro_rules! impl_tests {
 impl_tests!(v1, WyRngV1, wyrng_v1, c_wyrng_v1);
 
 #[cfg(not(feature = "mum32bit"))]
-impl_tests!(final3, WyRng, wyrng, c_wyrng_final3);
+impl_tests!(final3, WyRngFinal3, wyrng_final3, c_wyrng_final3);
 
 #[cfg(feature = "mum32bit")]
-impl_tests!(final3, WyRng, wyrng, c_wyrng_final3_32bit_mum);
+impl_tests!(final3, WyRngFinal3, wyrng_final3, c_wyrng_final3_32bit_mum);
