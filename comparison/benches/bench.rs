@@ -3,10 +3,10 @@ use core::hash::Hasher;
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use fnv::FnvHasher;
 use metrohash::{MetroHash128, MetroHash64};
-use rand::distributions::Standard;
+use rand::distr::StandardUniform;
 use rand::prelude::*;
 pub use std::collections::hash_map::DefaultHasher;
-use twox_hash::XxHash;
+use twox_hash::{XxHash32, XxHash64};
 use wyhash::{final3, v1};
 
 pub fn hasher_bench<H>(data: &[u8])
@@ -19,10 +19,10 @@ where
 }
 
 fn benchmark(c: &mut Criterion) {
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
     let data: Vec<Vec<u8>> = [0, 4, 7, 8, 9, 12, 16, 32, 64, 128, 512, 1024, 1024 * 1024]
         .iter()
-        .map(|&l| (&mut rng).sample_iter(Standard).take(l).collect())
+        .map(|&l| (&mut rng).sample_iter(StandardUniform).take(l).collect())
         .collect();
 
     let secret = final3::make_secret(0);
@@ -55,9 +55,15 @@ fn benchmark(c: &mut Criterion) {
         );
 
         group.bench_with_input(
-            BenchmarkId::new("XxHash Hasher", length),
+            BenchmarkId::new("XxHash32 Hasher", length),
             input,
-            |b, input| b.iter(|| hasher_bench::<XxHash>(input)),
+            |b, input| b.iter(|| hasher_bench::<XxHash32>(input)),
+        );
+
+        group.bench_with_input(
+            BenchmarkId::new("XxHash64 Hasher", length),
+            input,
+            |b, input| b.iter(|| hasher_bench::<XxHash64>(input)),
         );
 
         group.bench_with_input(

@@ -3,7 +3,7 @@ use comparison::ffi::c_wyrng_final3;
 #[cfg(feature = "mum32bit")]
 use comparison::ffi::c_wyrng_final3_32bit_mum;
 use comparison::ffi::c_wyrng_v1;
-use rand::{RngCore, SeedableRng};
+use rand::{RngCore, SeedableRng, TryRngCore};
 use wyhash::v1::wyrng as wyrng_v1;
 use wyhash::v1::WyRng as WyRngV1;
 use wyhash::{wyrng, WyRng};
