@@ -2,6 +2,7 @@
 
 [![crates.io](https://img.shields.io/crates/v/wyhash.svg)](https://crates.io/crates/wyhash)
 [![Docs](https://docs.rs/wyhash/badge.svg)](https://docs.rs/wyhash)
+![MSRV](https://img.shields.io/badge/rustc-1.63+-blue.svg)
 [![Build Status](https://github.com/eldruin/wyhash-rs/workflows/Build/badge.svg)](https://github.com/eldruin/wyhash-rs/actions?query=workflow%3ABuild)
 [![Coverage Status](https://coveralls.io/repos/github/eldruin/wyhash-rs/badge.svg?branch=master)](https://coveralls.io/github/eldruin/wyhash-rs?branch=master)
 
@@ -65,7 +66,7 @@ For questions, issues, feature requests, and other changes, please file an
 
 ## Minimum Supported Rust Version (MSRV)
 
-This crate is guaranteed to compile on stable Rust 1.36.0 and up. It *might*
+This crate is guaranteed to compile on stable Rust 1.63.0 and up. It *might*
 compile with older versions but that may change in any new patch release.
 
 ## License

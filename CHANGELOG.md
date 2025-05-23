@@ -8,15 +8,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added
-- Ported `final3` algorithm version.
 - Implemented `BuildHasher` trait.
+- Ported `final3` algorithm version.
 - Enable better performance on 32-bit systems via the `mum32bit` feature.
 - Benchmarks.
 - Added derives for `Debug`, `PartialEq`, `Eq`, `PartialOrd`, `Ord`, `Copy`, and `Hash` for all structs where applicable in the crate.
 
 ### Changed
 - [internal] Back-to-back tests now use compiled upstream C code instead of fixed result lists.
-- [breaking-change] Updated to rand_core 0.9.
+- [breaking-change] Updated to `rand_core` 0.9.
+- Updated MSRV to 1.63.0 due to the new `rand_core` version.
 
 ## [0.5.0] - 2020-12-17
 
