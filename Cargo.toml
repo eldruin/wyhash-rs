@@ -26,8 +26,7 @@ rand_core = "0.9"
 [dev-dependencies]
 metrohash = "1"
 fnv = "1"
-# pinned otherwise it pulls getrandom with the std feature. With the dep resolver in Rust 1.36.0 this does not build on no-std.
-twox-hash = "=1.6.0"
+twox-hash = "2.1"
 
 [features]
 mum32bit = []
@@ -39,4 +38,3 @@ members = ["comparison"]
 opt-level = 3
 codegen-units = 1
 lto = true
-
