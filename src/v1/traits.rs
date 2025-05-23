@@ -1,6 +1,6 @@
 use crate::v1::functions::{mix_with_p0, read64, wyhash_core, wyhash_finish, wyrng};
 use core::hash::{Hasher, BuildHasher};
-use rand_core::{impls, Error, RngCore, SeedableRng};
+use rand_core::{impls, RngCore, SeedableRng};
 
 /// WyHash hasher builder
 #[derive(Clone, Debug, PartialEq, Eq, Ord, PartialOrd, Copy, Hash)]
@@ -74,10 +74,6 @@ impl RngCore for WyRng {
     }
     fn fill_bytes(&mut self, dest: &mut [u8]) {
         impls::fill_bytes_via_next(self, dest)
-    }
-    fn try_fill_bytes(&mut self, dest: &mut [u8]) -> Result<(), Error> {
-        self.fill_bytes(dest);
-        Ok(())
     }
 }
 

@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - [breaking-change] Changed default version to `final3`. The previous version
   continues to be available in the module `wyhash::v1`.
 - [internal] Back-to-back tests now use compiled upstream C code instead of fixed result lists.
+- [breaking-change] Updated to rand_core 0.9.
 
 ## [0.5.0] - 2020-12-17
 
