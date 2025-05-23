@@ -1,7 +1,35 @@
 use crate::final3::functions::{wyhash_core, wyhash_finish, wyrng};
 use crate::v1::functions::{read64, P0, P1, P2, P3};
-use core::hash::Hasher;
+use core::hash::{Hasher, BuildHasher};
 use rand_core::{impls, RngCore, SeedableRng};
+
+/// WyHash hasher builder
+#[derive(Clone, Debug, PartialEq, Eq, Ord, PartialOrd, Copy, Hash)]
+pub struct WyHasherBuilder {
+    seed: u64,
+    secret: [u64; 4],
+}
+
+impl WyHasherBuilder {
+    /// Create hasher builder with a seed
+    pub fn new(seed: u64, secret: [u64; 4]) -> Self {
+        WyHasherBuilder { seed, secret }
+    }
+}
+
+impl Default for WyHasherBuilder {
+    fn default() -> Self {
+        WyHasherBuilder::new(0, [P0, P1, P2, P3])
+    }
+}
+
+impl BuildHasher for WyHasherBuilder {
+    type Hasher = WyHash;
+
+    fn build_hasher(&self) -> Self::Hasher {
+        WyHash::new(self.seed, self.secret)
+    }
+}
 
 /// WyHash hasher
 #[derive(Clone, Debug, PartialEq, Eq, Ord, PartialOrd, Copy, Hash)]
