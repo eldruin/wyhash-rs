@@ -15,7 +15,7 @@ where
 {
     let mut hasher: H = Default::default();
     hasher.write(data);
-    hasher.finish();
+    let _ = hasher.finish();
 }
 
 fn benchmark(c: &mut Criterion) {
