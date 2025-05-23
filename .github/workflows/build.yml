@@ -1,22 +1,17 @@
-on:
-  push:
-  pull_request:
-  schedule:
-    - cron: 0 0 * * 2
 
 name: Build
+on: [push, pull_request]
 
 env:
   RUSTFLAGS: '--deny warnings'
 
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        rust: [stable, beta, 1.36.0]
-        TARGET:
+        rust: [stable, 1.63.0]
+        target:
           - x86_64-unknown-linux-gnu
           - x86_64-unknown-linux-musl
           - arm-unknown-linux-gnueabi # Raspberry Pi 1
@@ -26,28 +21,25 @@ jobs:
           - thumbv7em-none-eabi
           - thumbv7em-none-eabihf
           - thumbv7m-none-eabi
-
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
         with:
-          profile: minimal
           toolchain: ${{ matrix.rust }}
-          target: ${{ matrix.TARGET }}
-          override: true
+          targets: ${{ matrix.target }}
 
       - name: Checkout CI scripts
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: 'eldruin/rust-driver-ci-scripts'
           ref: 'master'
           path: 'ci'
 
       - run: ./ci/patch-no-std.sh
-        if: ${{ ! contains(matrix.TARGET, 'x86_64') }}
+        if: ${{ ! contains(matrix.target, 'x86_64') }}
 
       - name: Patch bench dependencies incompatible with MSRV
-        if: matrix.rust == '1.36.0'
+        if: matrix.rust == '1.63.0'
         run: |
           sed -i "s/fnv/#fnv/g" Cargo.toml
           sed -i "s/fnv/#fnv/g" comparison/Cargo.toml
@@ -57,165 +49,97 @@ jobs:
           sed -i "s/twox-hash/#twox-hash/g" comparison/Cargo.toml
 
       - name: Build workspace
-        if: matrix.rust != '1.36.0' && matrix.TARGET == 'x86_64-unknown-linux-gnu'
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --target=${{ matrix.TARGET }} --workspace
+        if: matrix.rust != '1.63.0' && matrix.target == 'x86_64-unknown-linux-gnu'
+        run: cargo build --target=${{ matrix.target }} --workspace
 
-      - name: Build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --target=${{ matrix.TARGET }}
+      - run: cargo build --target=${{ matrix.target }}
+
 
   checks:
     name: Checks
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        rust: [stable, beta]
-        TARGET:
-          - x86_64-unknown-linux-gnu
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          profile: minimal
-          toolchain: ${{ matrix.rust }}
-          target: ${{ matrix.TARGET }}
-          override: true
+          targets: x86_64-unknown-linux-gnu
           components: rustfmt
 
-      - name: Doc
-        uses: actions-rs/cargo@v1
-        with:
-          command: doc
-
-      - name: Formatting
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --all -- --check
+      - run: cargo doc
+      - run: cargo fmt --all -- --check
 
   clippy:
     name: Clippy
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        rust: [1.58.1]
-        TARGET:
-          - x86_64-unknown-linux-gnu
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
         with:
-          profile: minimal
-          toolchain: ${{ matrix.rust }}
-          target: ${{ matrix.TARGET }}
-          override: true
+          toolchain: 1.87.0
+          targets: x86_64-unknown-linux-gnu
           components: clippy
 
-      - name: Clippy
-        uses: actions-rs/clippy-check@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - run: cargo clippy
 
       - name: Clippy comparison
         working-directory: ./comparison
-        run:  cargo clippy
+        run: cargo clippy
+
 
   test:
-    name: Tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        rust: [stable, beta, 1.36.0]
-        TARGET: [x86_64-unknown-linux-gnu, x86_64-unknown-linux-musl]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: ${{ matrix.rust }}
-          target: ${{ matrix.TARGET }}
-          override: true
+        target: [x86_64-unknown-linux-gnu]
 
-      - name: Patch bench dependencies incompatible with MSRV
-        if: matrix.rust == '1.36.0'
-        run: |
-          sed -i "s/fnv/#fnv/g" Cargo.toml
-          sed -i "s/fnv/#fnv/g" comparison/Cargo.toml
-          sed -i "s/metrohash/#metrohash/g" Cargo.toml
-          sed -i "s/metrohash/#metrohash/g" comparison/Cargo.toml
-          sed -i "s/twox-hash/#twox-hash/g" Cargo.toml
-          sed -i "s/twox-hash/#twox-hash/g" comparison/Cargo.toml
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
 
       - name: Test
-        if: matrix.rust != '1.36.0' && matrix.TARGET != 'x86_64-unknown-linux-musl' # musl-gcc is not installed
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --target=${{ matrix.TARGET }} --workspace
-
-      - name: Test 32-bit mum
-        if: matrix.rust != '1.36.0' && matrix.TARGET != 'x86_64-unknown-linux-musl' # musl-gcc is not installed
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --target=${{ matrix.TARGET }} --workspace --features comparison/mum32bit
-
-      - name: Test MSRV
-        if: matrix.rust == '1.36.0' || matrix.TARGET == 'x86_64-unknown-linux-musl'
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --target=${{ matrix.TARGET }}
+        run: cargo test --target=${{ matrix.target }}
 
       - name: Build examples
-        uses: actions-rs/cargo@v1
-        if: contains(matrix.TARGET, 'x86_64')
-        with:
-          command: build
-          args: --target=${{ matrix.TARGET }} --examples
+        run: cargo build --target=${{ matrix.target }} --examples
 
-  benchmark-test:
-    name: Benchmarks
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
+      - name: Test
+        run: cargo test --target=${{ matrix.target }} --workspace
 
-      - name: Compile benchmarks
-        working-directory: ./comparison
-        run: cargo bench --benches --no-run
+      - name: Test 32-bit mum
+        run: cargo test --target=${{ matrix.target }} --workspace --features comparison/mum32bit
 
   coverage:
     name: Coverage
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
 
-      - name: Install stable toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
 
-      - name: Run cargo-tarpaulin
-        uses: actions-rs/tarpaulin@v0.1
-        with:
-          args: '--workspace -- --test-threads 1'
+      - name: Generate code coverage
+        run: cargo llvm-cov --all-features --workspace --lcov --output-path lcov.info
 
       - name: upload to Coveralls
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: './lcov.info'
+
+  benchmark-test:
+    name: Benchmarks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-unknown-linux-gnu
+
+      - name: Compile benchmarks
+        working-directory: ./comparison
+        run: cargo bench --benches --no-run
