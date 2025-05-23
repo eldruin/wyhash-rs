@@ -1,5 +1,5 @@
 use crate::v1::functions::{mix_with_p0, read64, wyhash_core, wyhash_finish, wyrng};
-use core::hash::{Hasher, BuildHasher};
+use core::hash::{BuildHasher, Hasher};
 use rand_core::{impls, RngCore, SeedableRng};
 
 /// WyHash hasher builder
@@ -25,7 +25,10 @@ impl BuildHasher for WyHasherBuilder {
     type Hasher = WyHash;
 
     fn build_hasher(&self) -> Self::Hasher {
-        WyHash { h: self.seed, size: 0 }
+        WyHash {
+            h: self.seed,
+            size: 0,
+        }
     }
 }
 

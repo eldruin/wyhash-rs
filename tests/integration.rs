@@ -1,6 +1,6 @@
 extern crate core;
 extern crate wyhash;
-use core::hash::{Hasher, BuildHasher};
+use core::hash::{BuildHasher, Hasher};
 use wyhash::{final3, v1};
 
 #[test]

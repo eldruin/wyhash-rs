@@ -1,6 +1,6 @@
 use crate::final3::functions::{wyhash_core, wyhash_finish, wyrng};
 use crate::v1::functions::{read64, P0, P1, P2, P3};
-use core::hash::{Hasher, BuildHasher};
+use core::hash::{BuildHasher, Hasher};
 use rand_core::{impls, RngCore, SeedableRng};
 
 /// WyHash hasher builder
