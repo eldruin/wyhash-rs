@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 <!-- next-header -->
 ## [Unreleased] - ReleaseDate
 
+## [0.6.0] - 2025-05-23
+
 ### Added
 - Implemented `BuildHasher` trait.
 - Ported `final3` algorithm version.
@@ -78,7 +80,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 This is the initial release to crates.io.
 
 <!-- next-url -->
-[Unreleased]: https://github.com/eldruin/wyhash-rs/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/eldruin/wyhash-rs/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/eldruin/wyhash-rs/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/eldruin/wyhash-rs/compare/v0.4.2...v0.5.0
 [0.4.2]: https://github.com/eldruin/wyhash-rs/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/eldruin/wyhash-rs/compare/v0.4.0...v0.4.1
