@@ -2,11 +2,10 @@
 // (Same as using `std::hash::Hasher`)
 
 use core::hash::Hasher;
-use wyhash::{make_secret, WyHash};
+use wyhash::WyHash;
 
 fn main() {
-    let secret = make_secret(3);
-    let mut hasher = WyHash::new(4, secret);
+    let mut hasher = WyHash::with_seed(3);
     hasher.write(&[0, 1, 2]);
-    assert_eq!(0x8301_42a2_4404_5ff4, hasher.finish());
+    assert_eq!(0xb0f9_4152_0b1a_d95d, hasher.finish());
 }

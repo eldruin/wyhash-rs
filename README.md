@@ -26,22 +26,22 @@ Beware that this feature produces different results.
 
 ## Usage
 
-This crate provides free functions as well as implementations of the `Hasher`, `Rng` and
+This crate provides free functions as well as implementations of the `Hasher`, `BuildHasher`, `Rng` and
 `SeedableRng` traits.
 
 ```rust
 use core::hash::Hasher;
-use wyhash::{make_secret, WyHash};
+use wyhash::WyHash;
 
 fn main() {
-    let secret = make_secret(3);
-    let mut hasher = WyHash::new(4, secret);
-    hasher.write(&[0, 1, 2]);
-    assert_eq!(0x8301_42a2_4404_5ff4, hasher.finish());
+  let mut hasher = WyHash::with_seed(3);
+  hasher.write(&[0, 1, 2]);
+  assert_eq!(0xcc24_2106_e707_6a48, hasher.finish());
 }
 ```
 
 See further examples of the hasher and RNG in the documentation.
+
 
 ## Performance comparison
 

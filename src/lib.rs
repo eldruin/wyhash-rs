@@ -33,13 +33,13 @@
 //! ### `wyhash` function usage
 //!
 //! ```
-//! use wyhash::{make_secret, wyhash};
+//! use wyhash::wyhash;
 //!
 //! let data = [0, 1, 2];
 //! let seed = 3;
-//! let hash = wyhash(&data, seed, make_secret(seed));
+//! let hash = wyhash(&data, seed);
 //!
-//! println!("{:x}", hash); // prints ebd49a0ad01078ce
+//! println!("{:x}", hash); // prints b0f941520b1ad95d
 //! ```
 //!
 //! ### `Hasher` trait usage
@@ -48,13 +48,12 @@
 //!
 //! ```
 //! use core::hash::Hasher;
-//! use wyhash::{make_secret, WyHash};
+//! use wyhash::WyHash;
 //!
-//! let secret = make_secret(3);
-//! let mut hasher = WyHash::new(4, secret);
+//! let mut hasher = WyHash::with_seed(3);
 //! hasher.write(&[0, 1, 2]);
 //!
-//! println!("{:x}", hasher.finish()); // prints 830142a244045ff4
+//! println!("{:x}", hasher.finish()); // prints b0f941520b1ad95d
 //! ```
 //!
 //! ### `wyrng` function usage
@@ -108,8 +107,8 @@
 
 /// WyHash version 1
 pub mod v1;
+pub use crate::v1::{wyhash, wyrng};
+pub use crate::v1::{WyHash, WyHasherBuilder, WyRng};
 
 /// WyHash version final 3
 pub mod final3;
-pub use crate::final3::{make_secret, wyhash, wyrng};
-pub use crate::final3::{WyHash, WyRng, WyHasherBuilder};
