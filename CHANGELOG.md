@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Ported `final3` algorithm version.
+- Implemented `BuildHasher` trait.
 - Enable better performance on 32-bit systems via the `mum32bit` feature.
 - Benchmarks.
 - Added derives for `Debug`, `PartialEq`, `Eq`, `PartialOrd`, `Ord`, `Copy`, and `Hash` for all structs where applicable in the crate.
